@@ -1,12 +1,14 @@
 NAME	= Zombie
-SRCS	= main.cpp Zombie.cpp 
-# SRCS	+= newZombie.cpp randomChump.cpp
+COMP	= c++
+SRCS	= main.cpp Zombie.cpp
+SRCS	+= newZombie.cpp randomChump.cpp
+FLAGS	= -Wall -Wextra -Werror -std=c++98
 # OBJS	= $(SRCS:.cpp=.o)
 
 all: $(NAME)
 
 $(NAME): 
-	c++ -Wall -Wextra -Werror -std=c++98 $(SRCS) -o $(NAME)
+	$(COMP) $(SRCS) $(FLAGS) -o $(NAME)
 
 fclean:
 	rm -f $(NAME)

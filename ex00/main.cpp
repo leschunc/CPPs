@@ -2,10 +2,11 @@
 
 int main()
 {
-    // Zombie *zPointer = newZombie("jesus");
-    // zPointer->announce();
-    // randomChump("cristiano");
+    Zombie *zPointer = newZombie("Jesus");
+    zPointer->announce();
+    randomChump("Cristiano");
     Zombie amanda("Amanda");
-    // delete zPointer;
+    amanda.announce();
+    delete zPointer;
     return 0;
 }
