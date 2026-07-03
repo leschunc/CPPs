@@ -9,8 +9,9 @@ private:
 public:
     Zombie();
     Zombie(std::string name);
-    Zombie(int N);
     void setName(std::string name);
     void announce(void);
     ~Zombie();
 };
+
+Zombie *zombieHorde(int N, std::string name);
