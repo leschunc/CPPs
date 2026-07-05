@@ -1,8 +1,8 @@
-NAME	= MoarBrainz!
+NAME	= UnnecessaryViolence
 CXX		= c++
 FLAGS	= -Wall -Wextra -Werror -std=c++98
 
-FILES	= main Zombie zombieHorde
+FILES	= main HumanA HumanB Weapon
 SRCS	= $(addsuffix .cpp, $(FILES))
 
 OBJS	= $(SRCS:.cpp=.o)
