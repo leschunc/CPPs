@@ -39,11 +39,13 @@
 //     return 0;
 // }
 
-int main()
+int main(int argc, const char **argv)
 {
-    std::string line = "this is a this is aa and this is aaa";
-    std::string toReplace = "aa";
-    std::string replaceWith = "bbbbb";
+    if (argc != 4)
+        return 1;
+    std::string line = argv[1];
+    std::string s1 = argv[2];
+    std::string s2 = argv[3];
     size_t match;
     size_t start;
 
@@ -53,16 +55,16 @@ int main()
     start = 0;
     while (1)
     {
-        match = line.find(toReplace);
+        match = line.find(s1);
         if (match == std::string::npos)
             break ;
         result += line.substr(start, match);
-        result += replaceWith;
-        if (match + toReplace.size() > line.size())
+        result += s2;
+        if (match + s1.size() > line.size())
             break;
-        line = line.substr(match + toReplace.size());
+        line = line.substr(match + s1.size());
     }
+    result += line.substr(start, match);
     std::cout << result << std::endl;
-
     return 0;
 }
