@@ -3,6 +3,5 @@
 int main()
 {
     PhoneBook phoneBook;
-    
     phoneBook.start();
 }

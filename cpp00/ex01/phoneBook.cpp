@@ -115,7 +115,6 @@ void PhoneBook::promptIndex()
         else
         {
             std::cout << "nope, invalid index" << std::endl;
-            continue;
         }
     }
 }

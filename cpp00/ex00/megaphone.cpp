@@ -15,7 +15,7 @@ int main(int argc, char const *argv[])
         size_t buflen = buf.size();
         for (size_t j = 0; j < buflen; j++)
         {
-            std::cout << static_cast<char>(toupper(argv[i][j]));
+            std::cout << static_cast<char>(toupper(buf.at(j)));
         }
     }
     std::cout << std::endl;
