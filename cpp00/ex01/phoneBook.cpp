@@ -107,8 +107,11 @@ void PhoneBook::promptIndex()
         if (input.empty())
             break;
         num = atoi(input.c_str());
-        if (num >= 0 and num < SIZE and contacts[num].isEmpty() == false)
+        if (num >= 0 and num < SIZE and isdigit(input.at(0)) and input.size() == 1 and contacts[num].isEmpty() == false)
+        {
             dispContact(num);
+            break;
+        }
         else
         {
             std::cout << "nope, invalid index" << std::endl;
@@ -119,6 +122,8 @@ void PhoneBook::promptIndex()
 
 void PhoneBook::search()
 {
+    if (contacts[0].isEmpty())
+        return;
     listContacts();
     promptIndex();
 }
