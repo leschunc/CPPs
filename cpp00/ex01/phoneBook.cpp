@@ -1,6 +1,8 @@
 #include "phoneBook.hpp"
 
-PhoneBook::PhoneBook() {}
+PhoneBook::PhoneBook()
+{
+}
 PhoneBook::~PhoneBook()
 {
 }
@@ -59,7 +61,7 @@ void PhoneBook::add()
     i = (i + 1) % SIZE;
 }
 
-void PhoneBook::disp_format(std::string str, int type)
+void PhoneBook::dispFormat(std::string str, int type)
 {
     if (str.size() > 9)
         str = str.substr(0, 9) + ".";
@@ -70,34 +72,53 @@ void PhoneBook::disp_format(std::string str, int type)
         std::cout << "|";
 }
 
-void PhoneBook::search()
+void PhoneBook::listContacts()
 {
-    std::string input;
-    int num;
     for (int i = 0; i < SIZE; i++)
     {
         std::ostringstream ss;
         ss << i;
         if (this->contacts[i].isEmpty())
             break;
-        disp_format(ss.str(), 0);
-        disp_format(this->contacts[i].getFirstName(), 0);
-        disp_format(this->contacts[i].getLastName(), 0);
-        disp_format(this->contacts[i].getNickName(), 1);
+        dispFormat(ss.str(), 0);
+        dispFormat(this->contacts[i].getFirstName(), 0);
+        dispFormat(this->contacts[i].getLastName(), 0);
+        dispFormat(this->contacts[i].getNickName(), 1);
     }
+}
+
+void PhoneBook::dispContact(int num)
+{
+    std::cout << "Name: " << contacts[num].getFirstName() << std::endl;
+    std::cout << "Last name: " << contacts[num].getLastName() << std::endl;
+    std::cout << "Nickname: " << contacts[num].getNickName() << std::endl;
+    std::cout << "Phone no.: " << contacts[num].getPhoneNumber() << std::endl;
+    std::cout << "Darkest secret: " << contacts[num].getDarkestSecret() << std::endl;
+}
+
+void PhoneBook::promptIndex()
+{
+    std::string input;
+    int num;
     while (1)
     {
         std::cout << "Insert index:" << std::endl;
         std::getline(std::cin, input);
         if (input.empty())
-            break ;
+            break;
         num = atoi(input.c_str());
         if (num >= 0 and num < SIZE and contacts[num].isEmpty() == false)
-            break ;
+            dispContact(num);
         else
         {
             std::cout << "nope, invalid index" << std::endl;
             continue;
         }
     }
+}
+
+void PhoneBook::search()
+{
+    listContacts();
+    promptIndex();
 }

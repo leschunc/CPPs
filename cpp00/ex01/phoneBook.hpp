@@ -6,7 +6,7 @@
 #include <cstdlib>
 #include "contact.hpp"
 
-#define SIZE 3
+#define SIZE 8
 
 class PhoneBook
 {
@@ -18,7 +18,10 @@ public:
     void start();
     void add();
     void search();
-    void disp_format(std::string str, int type);
+    void dispFormat(std::string str, int type);
+    void listContacts();
+    void promptIndex();
+    void dispContact(int num);
     ~PhoneBook();
 };
 #endif
