@@ -3,6 +3,7 @@
 Harl::Harl()
 {
 }
+
 Harl::~Harl()
 {
 }
@@ -11,14 +12,17 @@ void Harl::debug(void)
 {
     std::cout << "I debug" << std::endl;
 }
+
 void Harl::info(void)
 {
     std::cout << "I inform" << std::endl;
 }
+
 void Harl::warning(void)
 {
-    std::cout << "I I warn" << std::endl;
+    std::cout << "I warn" << std::endl;
 }
+
 void Harl::error(void)
 {
     std::cout << "I error" << std::endl;
