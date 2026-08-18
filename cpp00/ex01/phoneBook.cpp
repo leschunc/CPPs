@@ -11,10 +11,8 @@ void PhoneBook::start()
 {
     std::string input;
 
-    while (1)
+    do
     {
-        if (std::cin.eof())
-            break;
         std::cout << "Enter command: " << std::endl;
         std::getline(std::cin, input);
         if (input.compare("ADD") == 0)
@@ -24,6 +22,7 @@ void PhoneBook::start()
         if (input.compare("EXIT") == 0)
             break;
     }
+    while (!std::cin.eof());
 }
 
 void PhoneBook::add()
@@ -100,6 +99,7 @@ void PhoneBook::promptIndex()
 {
     std::string input;
     int num;
+    
     while (1)
     {
         std::cout << "Insert index:" << std::endl;
