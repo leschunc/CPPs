@@ -4,8 +4,9 @@ int main()
 {
     Zombie *horde;
 
-    horde = zombieHorde(20, "seilas");
-    
+    horde = zombieHorde(0, "seilas");
+    if (!horde)
+        return 1;    
     delete [] horde;
     return 0;
 }

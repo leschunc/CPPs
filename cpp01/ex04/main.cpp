@@ -13,6 +13,8 @@ std::string findAndReplace(std::string line, std::string s1, std::string s2)
     start = 0;
     while (1)
     {
+        if (s1.empty())
+            return line;
         match = line.find(s1);
         if (match == std::string::npos)
             break;
@@ -32,12 +34,21 @@ int main(int argc, char const *argv[])
         return 1;
 
     std::fstream filestream(argv[1]);
+    if (filestream.good() == false)
+    {
+        std::cerr << "SedIsForLosers: can't read " << argv[1] << ": Permission denied" << std::endl;
+        return 1;
+    }
     std::string s1 = argv[2];
     std::string s2 = argv[3];
     std::string buffer;
     std::string newFile = (std::string(argv[1]) + ".append");
     std::ofstream output(newFile.c_str());
-
+    if (output.good() == false)
+    {
+        std::cerr << "SedIsForLosers: can't read " << newFile << ": Permission denied" << std::endl;
+        return 1;
+    }
     while (std::getline(filestream, buffer))
         output << findAndReplace(buffer, s1, s2) << std::endl;
     return 0;
