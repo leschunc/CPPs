@@ -1,7 +1,6 @@
 NAME	= MyAwesomePhoneBook
 CXX		= c++
-FLAGS	= -Wall -Wextra -std=c++98
-FLAGS	+= -Werror
+FLAGS	= -Wall -Wextra -Werror -std=c++98
 
 FILES	= phoneBook contact main
 SRCS	= $(addsuffix .cpp, $(FILES))

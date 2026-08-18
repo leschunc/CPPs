@@ -2,6 +2,7 @@
 
 Contact::Contact(void)
 {
+    this->filled = false;
 }
 Contact::~Contact(void)
 {
@@ -47,4 +48,14 @@ void Contact::setPhoneNumber(std::string input)
 void Contact::setDarkestSecret(std::string input)
 {
     this->darkestSecret = input;
+}
+
+bool Contact::isEmpty()
+{
+    return (!this->filled);
+}
+
+void Contact::setUsed()
+{
+    this->filled = true;
 }
