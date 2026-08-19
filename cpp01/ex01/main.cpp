@@ -3,8 +3,7 @@
 int main()
 {
     Zombie *horde;
-
-    horde = zombieHorde(0, "seilas");
+    horde = zombieHorde(20, "seila");
     if (!horde)
         return 1;    
     delete [] horde;

@@ -1,8 +1,15 @@
 #include <iostream>
 #include <string>
 #include <fstream>
+#include <cstdlib>
 
-std::string findAndReplace(std::string line, std::string s1, std::string s2)
+void rageQuit(std::string msg)
+{
+    std::cerr << msg << std::endl;
+    std::exit(1);
+}
+
+std::string findAndReplace(std::string file, std::string s1, std::string s2)
 {
     size_t match;
     size_t start;
@@ -14,42 +21,48 @@ std::string findAndReplace(std::string line, std::string s1, std::string s2)
     while (1)
     {
         if (s1.empty())
-            return line;
-        match = line.find(s1);
+            return file;
+        match = file.find(s1);
         if (match == std::string::npos)
             break;
-        result += line.substr(start, match);
+        result += file.substr(start, match);
         result += s2;
-        if (match + s1.size() > line.size())
+        if (match + s1.size() > file.size())
             break;
-        line = line.substr(match + s1.size());
+        file = file.substr(match + s1.size());
     }
-    result += line.substr(start, match);
+    result += file.substr(start, match);
     return result;
 }
 
 int main(int argc, char const *argv[])
 {
     if (argc != 4)
-        return 1;
+        rageQuit("Three arguments required");
 
-    std::fstream filestream(argv[1]);
-    if (filestream.good() == false)
+    std::ifstream inFile(argv[1]);
+    if (inFile.good() == false)
+        rageQuit("Could not open file");
+
+    std::string outFileName = argv[1];
+    outFileName.append(".replace");
+
+    std::ofstream outFile(outFileName.c_str());
+    if (outFile.good() == false)
+        rageQuit("Could not open file");
+    
+    std::string buf;
+    std::string loaded;
+    do
     {
-        std::cerr << "SedIsForLosers: can't read " << argv[1] << ": Permission denied" << std::endl;
-        return 1;
-    }
-    std::string s1 = argv[2];
-    std::string s2 = argv[3];
-    std::string buffer;
-    std::string newFile = (std::string(argv[1]) + ".append");
-    std::ofstream output(newFile.c_str());
-    if (output.good() == false)
-    {
-        std::cerr << "SedIsForLosers: can't read " << newFile << ": Permission denied" << std::endl;
-        return 1;
-    }
-    while (std::getline(filestream, buffer))
-        output << findAndReplace(buffer, s1, s2) << std::endl;
+        std::getline(inFile, buf);
+        loaded += buf;
+        if (inFile.eof() == false)
+            loaded += '\n';
+    } while (inFile.eof() == false);
+    
+    loaded = findAndReplace(loaded, argv[2], argv[3]);
+    outFile << loaded;
+
     return 0;
 }
