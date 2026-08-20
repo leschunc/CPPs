@@ -50,10 +50,41 @@ bool Fixed::operator>=(const Fixed &other)
 {
     return (this->getRawBits() >= other.getRawBits());
 }
+
 bool Fixed::operator==(const Fixed &other)
 {
     return (this->getRawBits() == other.getRawBits());
 }
+
+Fixed Fixed::operator+(const Fixed &other)
+{
+    Fixed result;
+
+    result.setRawBits(this->getRawBits() + other.getRawBits());
+    return (result);
+}
+
+Fixed Fixed::operator-(const Fixed &other)
+{
+    Fixed result;
+
+    result.setRawBits(this->getRawBits() - other.getRawBits());
+    return (result);
+}
+
+Fixed Fixed::operator*(const Fixed &other)
+{
+    Fixed result(this->toFloat() * other.toFloat());
+    return (result);
+}
+
+Fixed Fixed::operator/(const Fixed &other)
+{
+    Fixed result(this->toFloat() / other.toFloat());
+
+    return (result);
+}
+
 bool Fixed::operator!=(const Fixed &other)
 {
     return (this->getRawBits() != other.getRawBits());

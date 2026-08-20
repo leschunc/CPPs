@@ -28,9 +28,16 @@ void batchTest()
 
 int main(void)
 {
-    batchTest();
+    // batchTest();
 
-    
+    Fixed a(10.0f);
+    Fixed b(0.0f);
+
+    // float zero = 1/0;
+
+    // (void)zero;
+
+    std::cout << 0.0f / 0.0f << std::endl;
 
     return 0;
 }
