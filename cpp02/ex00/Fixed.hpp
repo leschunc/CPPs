@@ -1,6 +1,8 @@
 #ifndef FIXED
 #define FIXED
 
+#include <iostream>
+
 class Fixed
 {
 private:
@@ -9,7 +11,7 @@ private:
 
 public:
     Fixed();
-    Fixed(int num);
+    Fixed(Fixed &num);
     Fixed &operator=(const Fixed &other);
     int getRawBits() const;
     void setRawBits(int const raw);
