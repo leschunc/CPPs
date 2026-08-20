@@ -1,53 +1,125 @@
 #include "Fixed.hpp"
 #include <iostream>
 
+void disp(Fixed result)
+{
+    std::cout << result << std::endl;
+}
+
+void say(std::string str)
+{
+    std::cout << str << std::endl;
+}
+
+void sum(Fixed a, Fixed b)
+{
+    disp(a + b);
+}
+
+void sub(Fixed a, Fixed b)
+{
+    disp(a - b);
+}
+
+void preIncrement()
+{
+    Fixed a(0);
+    disp(a);
+    disp(++a);
+}
+
+void postIncrement()
+{
+    Fixed a(0);
+    disp(a++);
+    disp(a);
+}
+
+void preDecrement()
+{
+    Fixed a(0);
+    disp(a);
+    disp(--a);
+}
+
+void postDecrement()
+{
+    Fixed a(0);
+    disp(a--);
+    disp(a);
+}
+
+void less(Fixed a, Fixed b)
+{
+    if (a < b)
+        say("a < b");
+    else
+        say("a is not < b");
+}
+
+void more(Fixed a, Fixed b)
+{
+    if (a > b)
+        say("a > b");
+    else
+        say("a is not > b");
+}
+
+void lessEqual(Fixed a, Fixed b)
+{
+    if (a <= b)
+        say("a <= b");
+    else
+        say("a is not <= b");
+}
+
+void moreEqual(Fixed a, Fixed b)
+{
+    if (a >= b)
+        say("a >= b");
+    else
+        say("a is not >= b");
+}
+
+void equal(Fixed a, Fixed b)
+{
+    if (a == b)
+        say("a == b");
+    else
+        say("a is not == b");
+}
+
+void diff(Fixed a, Fixed b)
+{
+    if (a != b)
+        say("a != b");
+    else
+        say("a is not != b");
+}
+
 void batchTest()
 {
-    Fixed a((float)0.0f);
-    Fixed b((float)0.0f);
-    Fixed c((float)0.1f);
+    Fixed a;
+    Fixed b;
 
-    std::cout << "a " << a << std::endl
-              << "b " << b << std::endl
-              << "c " << c << std::endl
-              << std::endl;
+    sum(a, b);
+    sub(a, b);
+    less(a, b);
+    more(a, b);
+    lessEqual(a, b);
+    moreEqual(a, b);
+    equal(a, b);
+    diff(a, b);
 
-    if (a > b)
-        std::cout << "a > b" << std::endl;
-    if (a < b)
-        std::cout << std::endl;
-    std::cout << std::endl;
-    if (b >= c)
-        std::cout << "b >= c" << std::endl;
-    if (b <= c)
-        std::cout << std::endl;
-    std::cout << std::endl;
-    if (a == b)
-        std::cout << "a == b" << std::endl;
-    if (b != c)
-        std::cout << "b != c" << std::endl;
-    std::cout << std::endl;
-
-    std::cout << "post decrement a ";
-    float d = (a--).toFloat();
-    std::cout << d << std::endl;
-
-    std::cout << "pre decrement a ";
-    d = (--a).toFloat();
-    std::cout << d << std::endl;
-
-    std::cout << "post increment a ";
-    d = (a++).toFloat();
-    std::cout << d << std::endl;
-
-    std::cout << "pre increment a ";
-    d = (++a).toFloat();
-    std::cout << d << std::endl;
+    preIncrement();
+    postIncrement();
+    preDecrement();
+    postDecrement();
 }
 
 int main(void)
 {
     batchTest();
-
+    
     return 0;
 }

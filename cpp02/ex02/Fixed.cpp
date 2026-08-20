@@ -56,6 +56,11 @@ bool Fixed::operator==(const Fixed &other)
     return (this->getRawBits() == other.getRawBits());
 }
 
+bool Fixed::operator!=(const Fixed &other)
+{
+    return (this->getRawBits() != other.getRawBits());
+}
+
 Fixed Fixed::operator+(const Fixed &other)
 {
     Fixed result;
@@ -81,27 +86,8 @@ Fixed Fixed::operator*(const Fixed &other)
 Fixed Fixed::operator/(const Fixed &other)
 {
     Fixed result(this->toFloat() / other.toFloat());
-
     return (result);
 }
-
-bool Fixed::operator!=(const Fixed &other)
-{
-    return (this->getRawBits() != other.getRawBits());
-}
-
-// Fixed operator++(int n)
-// {
-
-// }
-// Fixed operator--(int n)
-// {
-
-// }
-// Fixed &operator--()
-// {
-
-// }
 
 Fixed& Fixed::operator++()
 {
