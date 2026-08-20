@@ -22,8 +22,8 @@ public:
     int toInt(void) const;
 
     Fixed &operator=(const Fixed &other);
-    Fixed operator++(int num);
-    Fixed operator--(int num);
+    Fixed operator++(int n);
+    Fixed operator--(int n);
     Fixed &operator--();
     Fixed &operator++();
 

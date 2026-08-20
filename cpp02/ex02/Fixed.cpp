@@ -90,6 +90,45 @@ bool Fixed::operator!=(const Fixed &other)
     return (this->getRawBits() != other.getRawBits());
 }
 
+// Fixed operator++(int n)
+// {
+
+// }
+// Fixed operator--(int n)
+// {
+
+// }
+// Fixed &operator--()
+// {
+
+// }
+
+Fixed& Fixed::operator++()
+{
+    this->setRawBits(this->getRawBits() + 1);
+    return (*this);
+}
+
+Fixed Fixed::operator++(int)
+{
+    Fixed result(*this);
+    this->setRawBits(this->getRawBits() + 1);
+    return (result);
+}
+
+Fixed& Fixed::operator--()
+{
+    this->setRawBits(this->getRawBits() - 1);
+    return (*this);
+}
+
+Fixed Fixed::operator--(int)
+{
+    Fixed result(*this);
+    this->setRawBits(this->getRawBits() - 1);
+    return (result);
+}
+
 int Fixed::toInt(void) const
 {
     return (raw >> frac);
