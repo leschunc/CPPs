@@ -13,11 +13,13 @@ void say(std::string str)
 
 void sum(Fixed a, Fixed b)
 {
+    say("sum");
     disp(a + b);
 }
 
 void sub(Fixed a, Fixed b)
 {
+    say("sub");
     disp(a - b);
 }
 
@@ -93,13 +95,29 @@ void diff(Fixed a, Fixed b)
         say("a is not != b");
 }
 
+void mult(Fixed a, Fixed b)
+{
+    say("a * b");
+    disp(a * b);
+}
+
+void div(Fixed a, Fixed b)
+{
+    say("a / b");
+    disp(a / b);
+}
+
 void batchTest()
 {
-    Fixed a;
-    Fixed b;
+    Fixed a(4.5f);
+    Fixed b(1.5f);
+
+    std::cout << a << " " << b << std::endl;
 
     sum(a, b);
     sub(a, b);
+    mult(a, b);
+    div(a, b);
     less(a, b);
     more(a, b);
     lessEqual(a, b);
@@ -113,10 +131,20 @@ void batchTest()
     postDecrement(a);
 }
 
+#include <iostream>
+
 int main(void)
 {
-    batchTest();    
+    batchTest();
 
+    // Fixed a;
+    // Fixed const b(Fixed(5.05f) * Fixed(2));
+    // std::cout << a << std::endl;
+    // std::cout << ++a << std::endl;
+    // std::cout << a << std::endl;
+    // std::cout << a++ << std::endl;
+    // std::cout << a << std::endl;
+    // std::cout << b << std::endl;
+    // std::cout << Fixed::max(a, b) << std::endl;
     return 0;
 }
-    
