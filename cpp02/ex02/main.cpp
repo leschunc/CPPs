@@ -106,11 +106,13 @@ void div(Fixed a, Fixed b)
     say("a / b");
     disp(a / b);
 }
+
 void min(Fixed a, Fixed b)
 {
     say("min: a b");
     disp(Fixed::min(a, b));
 }
+
 void max(Fixed a, Fixed b)
 {
     say("max: a b");
