@@ -106,6 +106,16 @@ void div(Fixed a, Fixed b)
     say("a / b");
     disp(a / b);
 }
+void min(Fixed a, Fixed b)
+{
+    say("min: a b");
+    disp(Fixed::min(a, b));
+}
+void max(Fixed a, Fixed b)
+{
+    say("max: a b");
+    disp(Fixed::max(a, b));
+}
 
 void batchTest()
 {
@@ -124,6 +134,8 @@ void batchTest()
     moreEqual(a, b);
     equal(a, b);
     diff(a, b);
+    min(a, b);
+    max(a, b);
 
     preIncrement(a);
     postIncrement(a);
@@ -131,20 +143,19 @@ void batchTest()
     postDecrement(a);
 }
 
-#include <iostream>
-
 int main(void)
 {
-    batchTest();
+    // batchTest();
 
-    // Fixed a;
-    // Fixed const b(Fixed(5.05f) * Fixed(2));
-    // std::cout << a << std::endl;
-    // std::cout << ++a << std::endl;
-    // std::cout << a << std::endl;
-    // std::cout << a++ << std::endl;
-    // std::cout << a << std::endl;
-    // std::cout << b << std::endl;
-    // std::cout << Fixed::max(a, b) << std::endl;
+    Fixed a;
+    Fixed const b(Fixed(5.05f) * Fixed(2));
+    std::cout << a << std::endl;
+    std::cout << ++a << std::endl;
+    std::cout << a << std::endl;
+    std::cout << a++ << std::endl;
+    std::cout << a << std::endl;
+    std::cout << b << std::endl;
+    std::cout << Fixed::max(a, b) << std::endl;
+
     return 0;
 }
