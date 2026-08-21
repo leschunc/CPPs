@@ -6,7 +6,7 @@
 /*   By: leschunc <leschunc@student.42lisboa.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/08/21 22:20:24 by leschunc          #+#    #+#             */
-/*   Updated: 2026/08/21 22:20:25 by leschunc         ###   ########.fr       */
+/*   Updated: 2026/08/21 22:22:35 by leschunc         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -133,8 +133,8 @@ void max(Fixed a, Fixed b)
 
 void batchTest()
 {
-    Fixed a(4.5f);
-    Fixed b(1.5f);
+    Fixed a(7.0f);
+    Fixed b(3.0f);
 
     std::cout << a << " " << b << std::endl;
 
