@@ -2,7 +2,7 @@
 
 Fixed::Fixed()
 {
-    raw = 0;
+    setRawBits(0);
 }
 
 Fixed::Fixed(int num)
@@ -80,14 +80,14 @@ Fixed Fixed::operator-(const Fixed &other) const
 Fixed Fixed::operator*(const Fixed &other) const
 {
     Fixed result;
-    result.setRawBits(((int64_t)this->getRawBits() * other.getRawBits()) >> frac);
+    result.setRawBits(((int64_t)getRawBits() * other.getRawBits()) >> frac);
     return (result);
 }
 
 Fixed Fixed::operator/(const Fixed &other) const
 {
     Fixed result;
-    result.setRawBits((int64_t)((this->getRawBits() ) / other.getRawBits()) << frac);
+    result.setRawBits((int64_t)((getRawBits() << frac ) / other.getRawBits()) );
     return (result);
 }
 
