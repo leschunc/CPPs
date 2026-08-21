@@ -3,20 +3,25 @@
 Fixed::Fixed()
 {
     std::cout << "Default constructor" << std::endl;
-    raw = 0;
+    setRawBits(0);
 }
 
-Fixed::Fixed(Fixed &num)
+Fixed::Fixed(const Fixed &num)
 {
     std::cout << "Copy constructor" << std::endl;
-    raw = num.raw;
+    setRawBits(num.getRawBits());
+}
+
+Fixed::~Fixed()
+{
+    std::cout << "Default destructor" << std::endl;
 }
 
 Fixed &Fixed::operator=(const Fixed &other)
 {
     std::cout << "Assignment overload" << std::endl;
     if (this != &other)
-        raw = other.raw;
+        setRawBits(other.getRawBits());
     return *this;
 }
 
@@ -28,9 +33,4 @@ int Fixed::getRawBits() const {
 void Fixed::setRawBits(int const raw){
     std::cout << "Setter RawBits" << std::endl;
     this->raw = raw;
-}
-
-Fixed::~Fixed()
-{
-    std::cout << "Default destructor" << std::endl;
 }

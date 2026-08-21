@@ -21,30 +21,26 @@ void sub(Fixed a, Fixed b)
     disp(a - b);
 }
 
-void preIncrement()
+void preIncrement(Fixed a)
 {
-    Fixed a(0);
     disp(a);
     disp(++a);
 }
 
-void postIncrement()
+void postIncrement(Fixed a)
 {
-    Fixed a(0);
     disp(a++);
     disp(a);
 }
 
-void preDecrement()
+void preDecrement(Fixed a)
 {
-    Fixed a(0);
     disp(a);
     disp(--a);
 }
 
-void postDecrement()
+void postDecrement(Fixed a)
 {
-    Fixed a(0);
     disp(a--);
     disp(a);
 }
@@ -111,15 +107,16 @@ void batchTest()
     equal(a, b);
     diff(a, b);
 
-    preIncrement();
-    postIncrement();
-    preDecrement();
-    postDecrement();
+    preIncrement(a);
+    postIncrement(a);
+    preDecrement(a);
+    postDecrement(a);
 }
 
 int main(void)
 {
-    batchTest();
-    
+    batchTest();    
+
     return 0;
 }
+    
