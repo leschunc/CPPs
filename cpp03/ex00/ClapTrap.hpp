@@ -2,7 +2,7 @@
 #define CLAPTRAP
 #include <iostream>
 
-#define DB_LEVEL DB_ALL
+#define DB_LEVEL DB_NONE
 
 enum e_debug
 {
@@ -11,7 +11,7 @@ enum e_debug
     DB_GETSET = 1 << 1,
     DB_OVERLD = 1 << 2,
     DB_METHOD = 1 << 3,
-    DB_ALL = DB_CONST | DB_GETSET | DB_OVERLD | DB_METHOD
+    DB_ALL = DB_CONST | DB_GETSET | DB_OVERLD | DB_METHOD,
 } ;
 
 class ClapTrap

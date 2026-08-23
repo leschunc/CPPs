@@ -22,11 +22,17 @@ void status(ClapTrap ct)
 
 int main()
 {
-    overflowProtecDemo();
+    // overflowProtecDemo();
 
     ClapTrap a;
 
-    status(a);
+    for (size_t i = 0; i < 11; i++)
+        a.attack("this other guy");
+        
+    for (size_t i = 0; i < 5; i++)
+        a.takeDamage(3);
+
+    // status(a);
 
     return 0;
 }
