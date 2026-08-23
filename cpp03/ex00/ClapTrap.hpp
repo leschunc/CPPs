@@ -17,20 +17,23 @@ enum e_debug
 class ClapTrap
 {
 private:
+    std::string name;
     unsigned int HP;
     unsigned int Energy;
     unsigned int AD;
 
 public:
-    ClapTrap();
+    ClapTrap(const std::string& name);
     ClapTrap(const ClapTrap &other);
     ~ClapTrap();
     ClapTrap &operator=(const ClapTrap &other);
 
+    std::string getName() const;
     unsigned int getHP() const;
     unsigned int getEnergy() const;
     unsigned int getAD() const;
 
+    void setName(const std::string& name);
     void setHP(unsigned int amount);
     void setEnergy(unsigned int amount);
     void setAD(unsigned int amount);

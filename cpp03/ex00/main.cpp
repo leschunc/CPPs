@@ -2,7 +2,7 @@
 
 void overflowProtecDemo()
 {
-    ClapTrap ct;
+    ClapTrap ct("Claudia");
 
     ct.beRepaired(0x7fffffed);
     for (size_t i = 0; i < 10; i++)
@@ -24,7 +24,7 @@ int main()
 {
     // overflowProtecDemo();
 
-    ClapTrap a;
+    ClapTrap a("Roberta");
 
     for (size_t i = 0; i < 11; i++)
         a.attack("this other guy");
