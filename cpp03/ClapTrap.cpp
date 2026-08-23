@@ -1,36 +1,71 @@
 #include "ClapTrap.hpp"
-#include <iostream>
+
+void say(std::string anything)
+{
+    std::cout << anything << std::endl;
+}
 
 ClapTrap::ClapTrap()
 {
-    std::cout << "Default constructor" << std::endl;
-    HP = 10;
-    Energy = 10;
-    AD = 0;
+    say(__FUNCTION__);
+    setHP(10);
+    setEnergy(10);
+    setAD(0);
 }
 
 ClapTrap::ClapTrap(const ClapTrap &other)
 {
-    std::cout << "Copy constructor" << std::endl;
-    this->HP = other.HP;
-    this->Energy = other.Energy;
-    this->AD = other.AD;
+    say(__FUNCTION__);
+    setHP(other.HP);
+    setEnergy(other.Energy);
+    setAD(other.AD);
 }
 
 ClapTrap::~ClapTrap()
 {
-    std::cout << "Default destructor" << std::endl;
+    say(__FUNCTION__);
 }
 
 ClapTrap &ClapTrap::operator=(ClapTrap &other)
 {
-    std::cout << "Assignment overload" << std::endl;
-
+    say(__FUNCTION__);
     if (this != &other)
     {
-        this->HP = other.HP;
-        this->Energy = other.Energy;
-        this->AD = other.AD;
+        HP = other.HP;
+        Energy = other.Energy;
+        AD = other.AD;
     }
     return *this;
+}
+
+int ClapTrap::getHP() const
+{
+    say(__FUNCTION__);
+    return HP;
+}
+int ClapTrap::getEnergy() const
+{
+    say(__FUNCTION__);
+    return Energy;
+}
+int ClapTrap::getAD() const
+{
+    say(__FUNCTION__);
+    return AD;
+}
+
+void ClapTrap::setHP(int amount)
+{
+    say(__FUNCTION__);
+    HP = amount;
+}
+void ClapTrap::setEnergy(int amount)
+{
+    say(__FUNCTION__);
+    Energy = amount;
+}
+void ClapTrap::setAD(int amount)
+{
+    say(__FUNCTION__);
+    AD = amount;
 }
