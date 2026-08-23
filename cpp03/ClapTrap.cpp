@@ -5,9 +5,15 @@ void say(std::string anything)
     std::cout << anything << std::endl;
 }
 
+void sayNum(unsigned int value)
+{
+    std::cout << value << std::endl;
+}
+
 ClapTrap::ClapTrap()
 {
-    say(__FUNCTION__);
+    if (DEBUG)
+        say(__FUNCTION__);
     setHP(10);
     setEnergy(10);
     setAD(0);
@@ -15,7 +21,8 @@ ClapTrap::ClapTrap()
 
 ClapTrap::ClapTrap(const ClapTrap &other)
 {
-    say(__FUNCTION__);
+    if (DEBUG)
+        say(__FUNCTION__);
     setHP(other.HP);
     setEnergy(other.Energy);
     setAD(other.AD);
@@ -23,12 +30,14 @@ ClapTrap::ClapTrap(const ClapTrap &other)
 
 ClapTrap::~ClapTrap()
 {
-    say(__FUNCTION__);
+    if (DEBUG)
+        say(__FUNCTION__);
 }
 
 ClapTrap &ClapTrap::operator=(ClapTrap &other)
 {
-    say(__FUNCTION__);
+    if (DEBUG)
+        say(__FUNCTION__);
     if (this != &other)
     {
         HP = other.HP;
@@ -38,34 +47,112 @@ ClapTrap &ClapTrap::operator=(ClapTrap &other)
     return *this;
 }
 
-int ClapTrap::getHP() const
+unsigned int ClapTrap::getHP() const
 {
-    say(__FUNCTION__);
+    if (DEBUG)
+        say(__FUNCTION__);
     return HP;
 }
-int ClapTrap::getEnergy() const
+
+unsigned int ClapTrap::getEnergy() const
 {
-    say(__FUNCTION__);
+    if (DEBUG)
+        say(__FUNCTION__);
     return Energy;
 }
-int ClapTrap::getAD() const
+
+unsigned int ClapTrap::getAD() const
 {
-    say(__FUNCTION__);
+    if (DEBUG)
+        say(__FUNCTION__);
     return AD;
 }
 
-void ClapTrap::setHP(int amount)
+void ClapTrap::setHP(unsigned int amount)
 {
-    say(__FUNCTION__);
+    if (DEBUG)
+        say(__FUNCTION__);
     HP = amount;
 }
-void ClapTrap::setEnergy(int amount)
+
+void ClapTrap::setEnergy(unsigned int amount)
 {
-    say(__FUNCTION__);
+    if (DEBUG)
+        say(__FUNCTION__);
     Energy = amount;
 }
-void ClapTrap::setAD(int amount)
+
+void ClapTrap::setAD(unsigned int amount)
 {
-    say(__FUNCTION__);
+    if (DEBUG)
+        say(__FUNCTION__);
     AD = amount;
+}
+
+void ClapTrap::attack(const std::string &target)
+{
+    if (DEBUG)
+        say(__FUNCTION__);
+    if (getEnergy() & (1 << 31) || getEnergy() == 0)
+    {
+        say("Can't attack, no energy");
+        return;
+    }
+    else
+        setEnergy(getEnergy() - 1);
+    if (getHP() & (1 << 31) || getHP() == 0)
+    {
+        say("Can't attack, it's dead");
+        return;
+    }
+    say("Attacking ");
+    say(target);
+    sayNum(getAD());
+}
+
+void ClapTrap::takeDamage(unsigned int amount)
+{
+    if (DEBUG)
+        say(__FUNCTION__);
+    if (getHP() & (1 << 31) || getHP() == 0)
+    {
+        say("Can't take damage, it's dead");
+        return;
+    }
+    if (amount & (1 << 31))
+    {
+        say("Sorry, will not perform unsafe operation");
+        return;
+    }
+    say("Taking damage: ");
+    sayNum(amount);
+    setHP(getHP() - amount);
+    sayNum(getHP());
+}
+
+void ClapTrap::beRepaired(unsigned int amount)
+{
+    if (DEBUG)
+        say(__FUNCTION__);
+    if (getEnergy() & (1 << 31) || getEnergy() == 0)
+    {
+        say("Can't be repaired, no energy");
+        return;
+    }
+    else
+        setEnergy(getEnergy() - 1);
+    if (getHP() & (1 << 31) || getHP() == 0)
+    {
+        say("Can't be repaired, it's dead");
+        return;
+    }
+    if (amount & (1 << 31) || (getHP() + amount) & (1 << 31))
+    {
+        say("Sorry, will not perform unsafe operation");
+        return;
+    }
+    say("Repairing: ");
+    sayNum(amount);
+    setHP(getHP() + amount);
+    sayNum(getHP());
 }
