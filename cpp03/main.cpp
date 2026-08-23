@@ -1,6 +1,6 @@
 #include "ClapTrap.hpp"
 
-void huh()
+void overflowProtecDemo()
 {
     ClapTrap ct;
 
@@ -12,9 +12,21 @@ void huh()
     ct.beRepaired(1);
 }
 
+void status(ClapTrap ct)
+{
+    sayNum(ct.getHP());
+    sayNum(ct.getEnergy());
+    sayNum(ct.getAD());
+    say("");
+}
+
 int main()
 {
-    huh();
+    overflowProtecDemo();
+
+    ClapTrap a;
+
+    status(a);
 
     return 0;
 }

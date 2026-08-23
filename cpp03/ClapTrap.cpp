@@ -1,6 +1,6 @@
 #include "ClapTrap.hpp"
 
-void say(std::string anything)
+void say(const std::string anything)
 {
     std::cout << anything << std::endl;
 }
@@ -12,7 +12,7 @@ void sayNum(unsigned int value)
 
 ClapTrap::ClapTrap()
 {
-    if (DEBUG)
+    if (DB_LEVEL & DB_CONST)
         say(__FUNCTION__);
     setHP(10);
     setEnergy(10);
@@ -21,7 +21,7 @@ ClapTrap::ClapTrap()
 
 ClapTrap::ClapTrap(const ClapTrap &other)
 {
-    if (DEBUG)
+    if (DB_LEVEL & DB_CONST)
         say(__FUNCTION__);
     setHP(other.HP);
     setEnergy(other.Energy);
@@ -30,13 +30,13 @@ ClapTrap::ClapTrap(const ClapTrap &other)
 
 ClapTrap::~ClapTrap()
 {
-    if (DEBUG)
+    if (DB_LEVEL & DB_CONST)
         say(__FUNCTION__);
 }
 
-ClapTrap &ClapTrap::operator=(ClapTrap &other)
+ClapTrap &ClapTrap::operator=(const ClapTrap &other)
 {
-    if (DEBUG)
+    if (DB_LEVEL & DB_OVERLD)
         say(__FUNCTION__);
     if (this != &other)
     {
@@ -49,49 +49,49 @@ ClapTrap &ClapTrap::operator=(ClapTrap &other)
 
 unsigned int ClapTrap::getHP() const
 {
-    if (DEBUG)
+    if (DB_LEVEL & DB_GETSET)
         say(__FUNCTION__);
     return HP;
 }
 
 unsigned int ClapTrap::getEnergy() const
 {
-    if (DEBUG)
+    if (DB_LEVEL & DB_GETSET)
         say(__FUNCTION__);
     return Energy;
 }
 
 unsigned int ClapTrap::getAD() const
 {
-    if (DEBUG)
+    if (DB_LEVEL & DB_GETSET)
         say(__FUNCTION__);
     return AD;
 }
 
 void ClapTrap::setHP(unsigned int amount)
 {
-    if (DEBUG)
+    if (DB_LEVEL & DB_GETSET)
         say(__FUNCTION__);
     HP = amount;
 }
 
 void ClapTrap::setEnergy(unsigned int amount)
 {
-    if (DEBUG)
+    if (DB_LEVEL & DB_GETSET)
         say(__FUNCTION__);
     Energy = amount;
 }
 
 void ClapTrap::setAD(unsigned int amount)
 {
-    if (DEBUG)
+    if (DB_LEVEL & DB_GETSET)
         say(__FUNCTION__);
     AD = amount;
 }
 
 void ClapTrap::attack(const std::string &target)
 {
-    if (DEBUG)
+    if (DB_LEVEL & DB_METHOD)
         say(__FUNCTION__);
     if (getEnergy() & (1 << 31) || getEnergy() == 0)
     {
@@ -112,7 +112,7 @@ void ClapTrap::attack(const std::string &target)
 
 void ClapTrap::takeDamage(unsigned int amount)
 {
-    if (DEBUG)
+    if (DB_LEVEL & DB_METHOD)
         say(__FUNCTION__);
     if (getHP() & (1 << 31) || getHP() == 0)
     {
@@ -132,7 +132,7 @@ void ClapTrap::takeDamage(unsigned int amount)
 
 void ClapTrap::beRepaired(unsigned int amount)
 {
-    if (DEBUG)
+    if (DB_LEVEL & DB_METHOD)
         say(__FUNCTION__);
     if (getEnergy() & (1 << 31) || getEnergy() == 0)
     {

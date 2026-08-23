@@ -27,7 +27,7 @@ re: fclean all
 mute:
 	@rm -f $(NAME) $(OBJS)
 
-go: re clean
+go: re
 # 	@sleep 2
 	clear
 	./$(NAME)

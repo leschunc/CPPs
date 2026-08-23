@@ -1,7 +1,18 @@
 #ifndef CLAPTRAP
 #define CLAPTRAP
 #include <iostream>
-#define DEBUG 0
+
+#define DB_LEVEL DB_ALL
+
+enum e_debug
+{
+    DB_NONE,
+    DB_CONST = 1 << 0,
+    DB_GETSET = 1 << 1,
+    DB_OVERLD = 1 << 2,
+    DB_METHOD = 1 << 3,
+    DB_ALL = DB_CONST | DB_GETSET | DB_OVERLD | DB_METHOD
+} ;
 
 class ClapTrap
 {
@@ -14,7 +25,7 @@ public:
     ClapTrap();
     ClapTrap(const ClapTrap &other);
     ~ClapTrap();
-    ClapTrap &operator=(ClapTrap &other);
+    ClapTrap &operator=(const ClapTrap &other);
 
     unsigned int getHP() const;
     unsigned int getEnergy() const;
@@ -29,7 +40,7 @@ public:
     void beRepaired(unsigned int amount);
 };
 
-void say(std::string anything);
+void say(const std::string anything);
 void sayNum(unsigned int value);
 
 #endif
