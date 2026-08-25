@@ -3,6 +3,10 @@
 int main()
 {
 
+    ScavTrap notbatma;
+
+    std::cout << notbatma.getName();
+
     ScavTrap a("robertinha");
 
     ScavTrap b(a);

@@ -14,6 +14,7 @@ ClapTrap::ClapTrap()
 {
     if (DB_LEVEL & DB_CONST)
         say(__FUNCTION__, true);
+    setName("batma");
 }
 
 ClapTrap::ClapTrap(const std::string &name)
@@ -170,8 +171,7 @@ void ClapTrap::beRepaired(unsigned int amount)
     }
     if (amount & (1 << 31) || (getHP() + amount) & (1 << 31))
     {
-        say(getName(), false);
-        say(": Sorry, will not perform unsafe operation", true);
+        std::cout << getName() << ": Sorry, will not perform unsafe operation" << std::endl;
         return;
     }
     setHP(getHP() + amount);

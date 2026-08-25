@@ -19,8 +19,10 @@ int main()
     ClapTrap a("Roberta");
 
     for (size_t i = 0; i < 11; i++)
-        a.attack("this other guy");
+        a.attack("this other gay");
     
+    a.beRepaired(2);
+
     ClapTrap b("Claudia");
     for (size_t i = 0; i < 5; i++)
     {

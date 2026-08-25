@@ -118,8 +118,7 @@ void FragTrap::beRepaired(unsigned int amount)
     }
     if (amount & (1 << 31) || (getHP() + amount) & (1 << 31))
     {
-        say(getName(), false);
-        say(": Sorry, will not perform unsafe operation", true);
+        std::cout << getName() << ": Sorry, will not perform unsafe operation" << std::endl;
         return;
     }
     setHP(getHP() + amount);
