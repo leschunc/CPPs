@@ -5,12 +5,16 @@ int main()
 
     ScavTrap a("robertinha");
 
-    a.attack("juao");
+    ScavTrap b(a);
 
-    // ScavTrap b(a);
+    ScavTrap c = b;
 
+    for (size_t i = 0; i < 11; i++)
+    {
+        c.attack("juao");
+    }
 
-    // ScavTrap c = b;
+    c.guardGate();
 
     return 0;
 }
