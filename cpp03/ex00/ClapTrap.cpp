@@ -6,7 +6,14 @@ void say(const std::string anything, bool nl)
         std::cout << std::endl;
     std::cout << "    >>>> " << anything;
     if (nl)
-        std::cout << std::endl << std::endl;
+        std::cout << std::endl
+                  << std::endl;
+}
+
+ClapTrap::ClapTrap()
+{
+    if (DB_LEVEL & DB_CONST)
+        say(__FUNCTION__, true);
 }
 
 ClapTrap::ClapTrap(const std::string &name)
@@ -14,9 +21,6 @@ ClapTrap::ClapTrap(const std::string &name)
     if (DB_LEVEL & DB_CONST)
         say(__FUNCTION__, true);
     setName(name);
-    setHP(10);
-    setEnergy(10);
-    setAD(0);
 }
 
 ClapTrap::ClapTrap(const ClapTrap &other)

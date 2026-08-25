@@ -2,7 +2,7 @@ NAME	= ClapTrap
 CXX		= c++
 FLAGS	= -Wall -Wextra -Werror -std=c++98
 
-FILES	= main ClapTrap
+FILES	= main ClapTrap ScavTrap
 SRCS	= $(addsuffix .cpp, $(FILES))
 
 OBJS	= $(SRCS:.cpp=.o)

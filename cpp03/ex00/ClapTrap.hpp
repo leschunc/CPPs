@@ -13,7 +13,7 @@ enum e_debug
     DB_METHOD = 1 << 3,
     DB_EVAL = DB_CONST | DB_OVERLD | DB_METHOD,
     DB_ALL = DB_CONST | DB_GETSET | DB_OVERLD | DB_METHOD,
-} ;
+};
 
 class ClapTrap
 {
@@ -24,7 +24,8 @@ private:
     unsigned int AD;
 
 public:
-    ClapTrap(const std::string& name);
+    ClapTrap();
+    ClapTrap(const std::string &name);
     ClapTrap(const ClapTrap &other);
     ~ClapTrap();
     ClapTrap &operator=(const ClapTrap &other);
@@ -34,12 +35,12 @@ public:
     unsigned int getEnergy() const;
     unsigned int getAD() const;
 
-    void setName(const std::string& name);
+    void setName(const std::string &name);
     void setHP(unsigned int amount);
     void setEnergy(unsigned int amount);
     void setAD(unsigned int amount);
 
-    void attack(const std::string& target);
+    void attack(const std::string &target);
     void takeDamage(unsigned int amount);
     void beRepaired(unsigned int amount);
 };

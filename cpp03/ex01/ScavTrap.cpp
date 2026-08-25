@@ -1,118 +1,67 @@
-#include "ClapTrap.hpp"
+#include "ScavTrap.hpp"
 
-void say(const std::string anything, bool nl)
-{
-    if (nl)
-        std::cout << std::endl;
-    std::cout << "    >>>> " << anything;
-    if (nl)
-        std::cout << std::endl
-                  << std::endl;
-}
-
-ClapTrap::ClapTrap()
+ScavTrap::ScavTrap()
 {
     if (DB_LEVEL & DB_CONST)
         say(__FUNCTION__, true);
+    setHP(100);
+    setEnergy(50);
+    setAD(20);
 }
 
-ClapTrap::ClapTrap(const std::string &name)
+ScavTrap::ScavTrap(const std::string &name)
 {
     if (DB_LEVEL & DB_CONST)
         say(__FUNCTION__, true);
+
     setName(name);
-    setHP(10);
-    setEnergy(10);
-    setAD(0);
+    setHP(100);
+    setEnergy(50);
+    setAD(20);
 }
 
-ClapTrap::ClapTrap(const ClapTrap &other)
+ScavTrap::ScavTrap(const ScavTrap &other) : ClapTrap(other)
 {
     if (DB_LEVEL & DB_CONST)
         say(__FUNCTION__, true);
-    setName(other.name);
-    setHP(other.HP);
-    setEnergy(other.Energy);
-    setAD(other.AD);
+
+    if (this == &other)
+        return;
+    setAD(other.getAD());
+    setHP(other.getHP());
+    setEnergy(other.getEnergy());
+    setName(other.getName());
 }
 
-ClapTrap::~ClapTrap()
+ScavTrap::~ScavTrap()
 {
     if (DB_LEVEL & DB_CONST)
         say(__FUNCTION__, true);
 }
 
-ClapTrap &ClapTrap::operator=(const ClapTrap &other)
+ScavTrap &ScavTrap::operator=(const ScavTrap &other)
 {
     if (DB_LEVEL & DB_OVERLD)
         say(__FUNCTION__, true);
-    if (this != &other)
-    {
-        name = other.name;
-        HP = other.HP;
-        Energy = other.Energy;
-        AD = other.AD;
-    }
+
+    if (this == &other)
+        return *this;
+    setAD(other.getAD());
+    setHP(other.getHP());
+    setEnergy(other.getEnergy());
+    setName(other.getName());
     return *this;
 }
 
-std::string ClapTrap::getName() const
+void ScavTrap::guardGate()
 {
-    if (DB_LEVEL & DB_GETSET)
+    if (DB_LEVEL & DB_METHOD)
         say(__FUNCTION__, true);
-    return name;
+
+    std::cout << getName() << " is now in Gate keeper mode" << std::endl;
 }
 
-unsigned int ClapTrap::getHP() const
-{
-    if (DB_LEVEL & DB_GETSET)
-        say(__FUNCTION__, true);
-    return HP;
-}
-
-unsigned int ClapTrap::getEnergy() const
-{
-    if (DB_LEVEL & DB_GETSET)
-        say(__FUNCTION__, true);
-    return Energy;
-}
-
-unsigned int ClapTrap::getAD() const
-{
-    if (DB_LEVEL & DB_GETSET)
-        say(__FUNCTION__, true);
-    return AD;
-}
-
-void ClapTrap::setName(const std::string &name)
-{
-    if (DB_LEVEL & DB_GETSET)
-        say(__FUNCTION__, true);
-    this->name = name;
-}
-
-void ClapTrap::setHP(unsigned int amount)
-{
-    if (DB_LEVEL & DB_GETSET)
-        say(__FUNCTION__, true);
-    HP = amount;
-}
-
-void ClapTrap::setEnergy(unsigned int amount)
-{
-    if (DB_LEVEL & DB_GETSET)
-        say(__FUNCTION__, true);
-    Energy = amount;
-}
-
-void ClapTrap::setAD(unsigned int amount)
-{
-    if (DB_LEVEL & DB_GETSET)
-        say(__FUNCTION__, true);
-    AD = amount;
-}
-
-void ClapTrap::attack(const std::string &target)
+void ScavTrap::attack(const std::string &target)
 {
     if (DB_LEVEL & DB_METHOD)
         say(__FUNCTION__, true);
@@ -128,12 +77,12 @@ void ClapTrap::attack(const std::string &target)
         std::cout << getName() << ": can't attack, it's dead" << std::endl;
         return;
     }
-    std::cout << "ClapTrap " << getName()
+    std::cout << "ScavTrap " << getName()
               << " attacks " << target << ", causing "
               << getAD() << " points of damage" << std::endl;
 }
 
-void ClapTrap::takeDamage(unsigned int amount)
+void ScavTrap::takeDamage(unsigned int amount)
 {
     if (DB_LEVEL & DB_METHOD)
         say(__FUNCTION__, true);
@@ -148,11 +97,11 @@ void ClapTrap::takeDamage(unsigned int amount)
         return;
     }
     setHP(getHP() - amount);
-    std::cout << "ClapTrap " << getName()
+    std::cout << "ScavTrap " << getName()
               << " takes " << amount << " points of damage" << std::endl;
 }
 
-void ClapTrap::beRepaired(unsigned int amount)
+void ScavTrap::beRepaired(unsigned int amount)
 {
     if (DB_LEVEL & DB_METHOD)
         say(__FUNCTION__, true);
@@ -175,6 +124,6 @@ void ClapTrap::beRepaired(unsigned int amount)
         return;
     }
     setHP(getHP() + amount);
-    std::cout << "ClapTrap " << getName()
+    std::cout << "ScavTrap " << getName()
               << " is repaired by " << amount << " hit points" << std::endl;
 }
