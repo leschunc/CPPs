@@ -9,6 +9,8 @@ private:
 public:
     Cat();
     ~Cat();
+
+    void makeSound() const ;
 };
 
 #endif

@@ -8,3 +8,8 @@ Dog::Dog()
 Dog::~Dog()
 {
 }
+
+void Dog::makeSound() const
+{
+    std::cout << "Bark" << std::endl;
+}

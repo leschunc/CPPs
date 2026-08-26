@@ -2,7 +2,7 @@ NAME	= animals
 CXX		= c++
 FLAGS	= -Wall -Wextra -Werror -std=c++98
 
-FILES	= main Animal Cat Dog
+FILES	= main Animal Cat Dog WrongAnimal WrongCat
 SRCS	= $(addsuffix .cpp, $(FILES))
 
 OBJS	= $(SRCS:.cpp=.o)
@@ -17,7 +17,6 @@ $(NAME): $(OBJS)
 
 clean:
 	rm -f $(OBJS)
-
 
 fclean: clean
 	rm -f $(NAME)

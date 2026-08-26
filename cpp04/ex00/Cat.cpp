@@ -8,3 +8,8 @@ Cat::Cat()
 Cat::~Cat()
 {
 }
+
+void Cat::makeSound() const
+{
+    std::cout << "Meow" << std::endl;
+}
