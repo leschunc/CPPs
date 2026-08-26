@@ -1,6 +1,6 @@
 #include "ClapTrap.hpp"
 
-void trio()
+void trioTest()
 {
     ClapTrap mario("mario");
     mario.attack("charlie");
@@ -21,7 +21,7 @@ void trio()
     amy.attack("mario");
 }
 
-void exhaust()
+void exhaustTest()
 {
     ClapTrap antonio("tonyo");
 
@@ -35,7 +35,7 @@ void exhaust()
         antonio.takeDamage(2);
 }
 
-void scope()
+void scopeTest()
 {
     ClapTrap a("a");
 
@@ -50,11 +50,11 @@ void scope()
 int main()
 {
 
-    // trio();
+    // trioTest();
 
-    exhaust();
+    exhaustTest();
 
-    // scope();
+    // scopeTest();
 
     return 0;
 }

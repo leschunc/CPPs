@@ -18,7 +18,7 @@ ScavTrap::ScavTrap(const std::string &name)
     setAD(20);
 }
 
-ScavTrap::ScavTrap(const ScavTrap &other)
+ScavTrap::ScavTrap(const ScavTrap &other) : ClapTrap(other)
 {
     std::cout << ">>> ScavTrap copy constructor" << std::endl;
     setName(other.name);
