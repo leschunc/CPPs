@@ -3,7 +3,7 @@
 ClapTrap::ClapTrap()
 {
     std::cout << ">>> ClapTrap default constructor" << std::endl;
-    setName("ClapTrap");
+    setName("genericName");
     setHP(10);
     setEnergy(10);
     setAD(0);
