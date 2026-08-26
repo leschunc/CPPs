@@ -1,8 +1,8 @@
-NAME	= ClapTrap
+NAME	= animals
 CXX		= c++
 FLAGS	= -Wall -Wextra -Werror -std=c++98
 
-FILES	= main ClapTrap ScavTrap
+FILES	= main Animal Cat Dog
 SRCS	= $(addsuffix .cpp, $(FILES))
 
 OBJS	= $(SRCS:.cpp=.o)

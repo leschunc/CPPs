@@ -28,7 +28,6 @@ mute:
 	@rm -f $(NAME) $(OBJS)
 
 go: re
-# 	@sleep 2
 	clear
 	./$(NAME)
 	@$(MAKE) --no-print-directory mute
