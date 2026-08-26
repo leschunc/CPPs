@@ -2,7 +2,7 @@
 #define CLAPTRAP
 #include <iostream>
 
-#define DB_LEVEL DB_NONE
+#define DB_LEVEL DB_EVAL
 
 enum e_debug
 {

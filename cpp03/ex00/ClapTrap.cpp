@@ -34,7 +34,7 @@ ClapTrap::~ClapTrap()
 
 ClapTrap &ClapTrap::operator=(const ClapTrap &other)
 {
-    std::cout << ">>> Assignment operator overload" << std::endl;
+    std::cout << ">>> ClapTrap assignment operator overload" << std::endl;
     if (this != &other)
     {
         name = other.name;
