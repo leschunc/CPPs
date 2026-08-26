@@ -1,27 +1,17 @@
 #include "ClapTrap.hpp"
 
-void say(const std::string anything, bool nl)
-{
-    if (nl)
-        std::cout << std::endl;
-    std::cout << "    >>>> " << anything;
-    if (nl)
-        std::cout << std::endl
-                  << std::endl;
-}
-
 ClapTrap::ClapTrap()
 {
-    if (DB_LEVEL & DB_CONST)
-        say(__FUNCTION__, true);
-    setName("batma");
-
+    std::cout << ">>> ClapTrap default constructor" << std::endl;
+    setName("genericName");
+    setHP(10);
+    setEnergy(10);
+    setAD(0);
 }
 
 ClapTrap::ClapTrap(const std::string &name)
 {
-    if (DB_LEVEL & DB_CONST)
-        say(__FUNCTION__, true);
+    std::cout << ">>> ClapTrap parameterized constructor" << std::endl;
     setName(name);
     setHP(10);
     setEnergy(10);
@@ -30,8 +20,7 @@ ClapTrap::ClapTrap(const std::string &name)
 
 ClapTrap::ClapTrap(const ClapTrap &other)
 {
-    if (DB_LEVEL & DB_CONST)
-        say(__FUNCTION__, true);
+    std::cout << ">>> ClapTrap copy constructor" << std::endl;
     setName(other.name);
     setHP(other.HP);
     setEnergy(other.Energy);
@@ -40,14 +29,12 @@ ClapTrap::ClapTrap(const ClapTrap &other)
 
 ClapTrap::~ClapTrap()
 {
-    if (DB_LEVEL & DB_CONST)
-        say(__FUNCTION__, true);
+    std::cout << ">>> ClapTrap default destructor" << std::endl;
 }
 
 ClapTrap &ClapTrap::operator=(const ClapTrap &other)
 {
-    if (DB_LEVEL & DB_OVERLD)
-        say(__FUNCTION__, true);
+    std::cout << ">>> ClapTrap assignment operator overload" << std::endl;
     if (this != &other)
     {
         name = other.name;
@@ -60,76 +47,57 @@ ClapTrap &ClapTrap::operator=(const ClapTrap &other)
 
 std::string ClapTrap::getName() const
 {
-    if (DB_LEVEL & DB_GETSET)
-        say(__FUNCTION__, true);
     return name;
 }
 
-unsigned int ClapTrap::getHP() const
+int ClapTrap::getHP() const
 {
-    if (DB_LEVEL & DB_GETSET)
-        say(__FUNCTION__, true);
     return HP;
 }
 
-unsigned int ClapTrap::getEnergy() const
+int ClapTrap::getEnergy() const
 {
-    if (DB_LEVEL & DB_GETSET)
-        say(__FUNCTION__, true);
     return Energy;
 }
 
-unsigned int ClapTrap::getAD() const
+int ClapTrap::getAD() const
 {
-    if (DB_LEVEL & DB_GETSET)
-        say(__FUNCTION__, true);
     return AD;
 }
 
 void ClapTrap::setName(const std::string &name)
 {
-    if (DB_LEVEL & DB_GETSET)
-        say(__FUNCTION__, true);
     this->name = name;
 }
 
-void ClapTrap::setHP(unsigned int amount)
+void ClapTrap::setHP(int amount)
 {
-    if (DB_LEVEL & DB_GETSET)
-        say(__FUNCTION__, true);
     HP = amount;
 }
 
-void ClapTrap::setEnergy(unsigned int amount)
+void ClapTrap::setEnergy(int amount)
 {
-    if (DB_LEVEL & DB_GETSET)
-        say(__FUNCTION__, true);
     Energy = amount;
 }
 
-void ClapTrap::setAD(unsigned int amount)
+void ClapTrap::setAD(int amount)
 {
-    if (DB_LEVEL & DB_GETSET)
-        say(__FUNCTION__, true);
     AD = amount;
 }
 
 void ClapTrap::attack(const std::string &target)
 {
-    if (DB_LEVEL & DB_METHOD)
-        say(__FUNCTION__, true);
-    if (getEnergy() & (1 << 31) || getEnergy() == 0)
+    if (getEnergy() <= 0)
     {
-        std::cout << getName() << ": can't attack, no energy" << std::endl;
+        std::cout << getName() << " can't attack, no energy" << std::endl;
         return;
     }
-    else
-        setEnergy(getEnergy() - 1);
-    if (getHP() & (1 << 31) || getHP() == 0)
+    if (getHP() <= 0)
     {
-        std::cout << getName() << ": can't attack, it's dead" << std::endl;
+        std::cout << getName() << " can't attack, it's dead" << std::endl;
         return;
     }
+    setEnergy(getEnergy() - 1);
     std::cout << "ClapTrap " << getName()
               << " attacks " << target << ", causing "
               << getAD() << " points of damage" << std::endl;
@@ -137,16 +105,19 @@ void ClapTrap::attack(const std::string &target)
 
 void ClapTrap::takeDamage(unsigned int amount)
 {
-    if (DB_LEVEL & DB_METHOD)
-        say(__FUNCTION__, true);
-    if (getHP() & (1 << 31) || getHP() == 0)
+    if (getEnergy() <= 0)
     {
-        std::cout << getName() << ": can't take damage, it's dead" << std::endl;
+        std::cout << getName() << ": can't take damage: no energy" << std::endl;
         return;
     }
-    if (amount & (1 << 31))
+    if (getHP() <= 0)
     {
-        std::cout << getName() << ": Sorry, will not perform unsafe operation" << std::endl;
+        std::cout << getName() << ": can't take damage: it's dead" << std::endl;
+        return;
+    }
+    if (amount > __INT_MAX__ || (getHP() - (int)amount) > getHP())
+    {
+        std::cout << getName() << ": unsafe operation" << std::endl;
         return;
     }
     setHP(getHP() - amount);
@@ -156,26 +127,23 @@ void ClapTrap::takeDamage(unsigned int amount)
 
 void ClapTrap::beRepaired(unsigned int amount)
 {
-    if (DB_LEVEL & DB_METHOD)
-        say(__FUNCTION__, true);
-    if (getEnergy() & (1 << 31) || getEnergy() == 0)
+    if (getEnergy() <= 0)
     {
-        std::cout << getName() << ": can't be repaired, no energy" << std::endl;
+        std::cout << getName() << ": can't be repaired: no energy" << std::endl;
         return;
     }
-    else
-        setEnergy(getEnergy() - 1);
-    if (getHP() & (1 << 31) || getHP() == 0)
+    if (getHP() <= 0)
     {
-        std::cout << getName() << ": can't be repaired, it's dead" << std::endl;
+        std::cout << getName() << ": can't be repaired: it's dead" << std::endl;
         return;
     }
-    if (amount & (1 << 31) || (getHP() + amount) & (1 << 31))
+    if (amount > __INT_MAX__ || (getHP() + (int)amount) < getHP())
     {
-        std::cout << getName() << ": Sorry, will not perform unsafe operation" << std::endl;
+        std::cout << getName() << ": unsafe operation" << std::endl;
         return;
     }
     setHP(getHP() + amount);
+    setEnergy(getEnergy() - 1);
     std::cout << "ClapTrap " << getName()
               << " is repaired by " << amount << " hit points" << std::endl;
 }
