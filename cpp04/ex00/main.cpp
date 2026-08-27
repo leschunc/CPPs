@@ -29,6 +29,7 @@ void copyTest()
     dog2.makeSound();
     dog->makeSound();
 
+    delete dog;
     delete c;
     std::cout << "------------" << std::endl;
 }
@@ -40,6 +41,9 @@ void wrongTest()
 
     ani->makeSound();
     gatu->makeSound();
+
+    delete ani;
+    delete gatu;
     std::cout << "------------" << std::endl;
 }
 
@@ -64,9 +68,9 @@ int main()
 
     // copyTest();
 
-    wrongTest();
+    // wrongTest();
 
-    wrongCopyTest();
+    // wrongCopyTest();
 
     const Animal *meta = new Animal();
     const Animal *j = new Dog();

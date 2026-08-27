@@ -163,13 +163,13 @@ int main()
     
     shallowTest();
     
-    // dogSameTest();
+    dogSameTest();
     
-    // copyTest();
+    copyTest();
 
-    // schrodTest();
+    schrodTest();
 
-    // simpleTest();
+    simpleTest();
 
     return 0;
 }

@@ -9,7 +9,7 @@ FragTrap::FragTrap()
     setAD(30);
 }
 
-FragTrap::FragTrap(const std::string &name)
+FragTrap::FragTrap(const std::string &name) : ClapTrap(name)
 {
     std::cout << ">>> FragTrap parameterized constructor" << std::endl;
     setName(name);

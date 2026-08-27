@@ -36,4 +36,4 @@ er: re
 	valgrind ./$(NAME)
 	@$(MAKE) --no-print-directory mute
 
-.PHONY: all clean fclean re mute go
+.PHONY: all clean fclean re mute go er

@@ -9,7 +9,7 @@ ScavTrap::ScavTrap()
     setAD(20);
 }
 
-ScavTrap::ScavTrap(const std::string &name)
+ScavTrap::ScavTrap(const std::string &name) : ClapTrap(name)
 {
     std::cout << ">>> ScavTrap parameterized constructor" << std::endl;
     setName(name);

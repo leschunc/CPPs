@@ -36,10 +36,15 @@ Brain::~Brain()
 
 void Brain::setThought(const std::string &thought, int no)
 {
-    ideas[no] = thought;
+    if (no >= 0 && no < BIGBRAIN)
+        ideas[no] = thought;
 }
 
 const std::string &Brain::getThought(int no) const
 {
-    return ideas[no];
+    static const std::string empty = "";
+
+    if (no >= 0 && no < BIGBRAIN)
+        return ideas[no];
+    return (empty);
 }
