@@ -2,8 +2,8 @@
 
 Brain::Brain()
 {
-    std::cout << ">>>>>>> Brain default constructor" << std::endl;
     ideas = new std::string[BIGBRAIN];
+    std::cout << ">>>>>>> Brain default constructor " << std::endl;
 }
 
 Brain::Brain(const Brain &copy)
@@ -30,6 +30,6 @@ Brain &Brain::operator=(const Brain &copy)
 
 Brain::~Brain()
 {
-    std::cout << ">>>>>>> Brain default destructor" << std::endl;
+    std::cout << ">>>>>>> Brain default destructor " << std::endl;
     delete[] ideas;
 }

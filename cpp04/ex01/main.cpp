@@ -3,6 +3,7 @@
 #include "Dog.hpp"
 #include "WrongAnimal.hpp"
 #include "WrongCat.hpp"
+#include <cstdlib>
 
 void copyTest()
 {
@@ -30,6 +31,7 @@ void copyTest()
     dog->makeSound();
 
     delete c;
+    delete dog;
     std::cout << "------------" << std::endl;
 }
 
@@ -40,6 +42,8 @@ void wrongTest()
 
     ani->makeSound();
     gatu->makeSound();
+    delete ani;
+    delete gatu;
     std::cout << "------------" << std::endl;
 }
 
@@ -59,15 +63,8 @@ void wrongCopyTest()
     std::cout << "------------" << std::endl;
 }
 
-int main()
+void evalTest()
 {
-
-    // copyTest();
-
-    // wrongTest();
-
-    // wrongCopyTest();
-
     const Animal *meta = new Animal();
     const Animal *j = new Dog();
     const Animal *i = new Cat();
@@ -79,6 +76,43 @@ int main()
 
     i->makeSound();
     j->makeSound();
+
+    delete meta;
+    delete i;
+    delete j;
+}
+
+void schrodTest()
+{
+    Cat cat;
+    Cat catcat(cat);
+    std::cout << "------------" << std::endl;
+}
+
+void shallowTest()
+{
+    Cat cat;
+
+    Cat catcat;
+
+    catcat = cat;
+    std::cout << "------------" << std::endl;
+}
+
+int main()
+{
+
+    copyTest();
+
+    wrongTest();
+
+    wrongCopyTest();
+
+    evalTest();
+
+    shallowTest();
+
+    schrodTest();
 
     return 0;
 }

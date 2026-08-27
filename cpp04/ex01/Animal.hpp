@@ -1,7 +1,8 @@
-#ifndef ANIMAL
-#define ANIMAL
+#ifndef ANIMAL_HPP
+#define ANIMAL_HPP
 
 #include <iostream>
+#define DEBUG false
 
 class Animal
 {

@@ -1,8 +1,9 @@
-#ifndef BRAIN
-#define BRAIN
+#ifndef BRAIN_HPP
+#define BRAIN_HPP
 
 #include <iostream>
 #define BIGBRAIN 100
+#define DEBUG false
 
 class Brain
 {
@@ -14,7 +15,7 @@ public:
     Brain(const Brain &copy);
     ~Brain();
 
-    Brain &Brain::operator=(const Brain &copy);
+    Brain &operator=(const Brain &copy);
 };
 
 #endif

@@ -80,5 +80,9 @@ int main()
     i->makeSound();
     j->makeSound();
 
+    delete i;
+    delete j;
+    delete meta;
+
     return 0;
 }
