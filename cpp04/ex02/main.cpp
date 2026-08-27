@@ -5,60 +5,7 @@
 #include "WrongCat.hpp"
 #include <cstdlib>
 
-// this shows I can work with either const or non const animals
-void copyTest()
-{
-    Animal a;
-    const Animal b;
-    Animal *c;
-    const Animal *d = new Animal;
-
-    a = b;
-    c = (Animal *)d;
-    c->setType("ai meo deos");
-    std::cout << d->getType() << std::endl;
-
-    Cat cat;
-
-    Cat cat2 = cat;
-
-    cat = cat2;
-
-    const Dog *dog = new Dog;
-
-    Dog dog2 = *dog;
-
-    dog2.makeSound();
-    dog->makeSound();
-
-    delete c;
-    delete dog;
-    std::cout << "------------" << std::endl;
-}
-
-// output example from subject part 1
-void subjectOneTest()
-{
-    const Animal *meta = new Animal();
-    const Animal *j = new Dog();
-    const Animal *i = new Cat();
-
-    std::cout << j->getType() << " " << std::endl;
-    std::cout << i->getType() << " " << std::endl;
-
-    meta->makeSound();
-
-    i->makeSound();
-    j->makeSound();
-
-    delete meta;
-    delete i;
-    delete j;
-    std::cout << "------------" << std::endl;
-}
-
-
-// Subject part two
+// Subject tests
 void subjectTest()
 {
     Animal *animals[10];
@@ -157,19 +104,16 @@ void simpleTest()
 
 int main()
 {
-    subjectOneTest();
     
     subjectTest();
     
     shallowTest();
     
-    // dogSameTest();
+    dogSameTest();
     
-    // copyTest();
+    schrodTest();
 
-    // schrodTest();
-
-    // simpleTest();
+    simpleTest();
 
     return 0;
 }
