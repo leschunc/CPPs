@@ -44,6 +44,13 @@ void individualityTest()
     b.highFivesGuys();
 }
 
+void overFlowTest()
+{
+    FragTrap a;
+
+    a.takeDamage(-1);
+}
+
 int main()
 {
 
@@ -53,7 +60,9 @@ int main()
 
     // inheriranceTest();
 
-    individualityTest();
+    // individualityTest();
+
+    overFlowTest();
 
     return 0;
 }

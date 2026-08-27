@@ -65,11 +65,6 @@ void FragTrap::attack(const std::string &target)
 
 void FragTrap::takeDamage(unsigned int amount)
 {
-    if (getEnergy() <= 0)
-    {
-        std::cout << getName() << ": can't take damage: no energy" << std::endl;
-        return;
-    }
     if (getHP() <= 0)
     {
         std::cout << getName() << ": can't take damage: it's dead" << std::endl;
