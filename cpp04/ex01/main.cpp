@@ -90,14 +90,26 @@ void schrodTest()
     std::cout << "------------" << std::endl;
 }
 
+Cat deepCatter()
+{
+    Cat deespestCat;
+
+    deespestCat.peek().setThought("out-thought", 0);
+
+    Cat deepCat = deespestCat;
+
+    deespestCat.peek().setThought("in-thought", 0);
+
+    std::cout << "------------" << std::endl;
+
+    return deepCat;
+}
+
 void shallowTest()
 {
-    Cat cat;
+    Cat midCat = deepCatter();
 
-    Cat catcat;
-
-    catcat = cat;
-    std::cout << "------------" << std::endl;
+    std::cout << midCat.peek().getThought(0) << std::endl;
 }
 
 void subjectTest()
@@ -132,7 +144,9 @@ int main()
 
     subjectTest();
 
-    // shallowTest();
+    shallowTest();
+
+    // delete a;
 
     // schrodTest();
 
