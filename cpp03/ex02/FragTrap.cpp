@@ -60,46 +60,6 @@ void FragTrap::attack(const std::string &target)
               << getAD() << " points of damage" << std::endl;
 }
 
-void FragTrap::takeDamage(unsigned int amount)
-{
-    if (getHP() <= 0)
-    {
-        std::cout << getName() << ": can't take damage: it's dead" << std::endl;
-        return;
-    }
-    if (amount > __INT_MAX__ || (getHP() - (int)amount) > getHP())
-    {
-        std::cout << getName() << ": unsafe operation" << std::endl;
-        return;
-    }
-    setHP(getHP() - amount);
-    std::cout << "FragTrap " << getName()
-              << " takes " << amount << " points of damage" << std::endl;
-}
-
-void FragTrap::beRepaired(unsigned int amount)
-{
-    if (getEnergy() <= 0)
-    {
-        std::cout << getName() << ": can't be repaired: no energy" << std::endl;
-        return;
-    }
-    if (getHP() <= 0)
-    {
-        std::cout << getName() << ": can't be repaired: it's dead" << std::endl;
-        return;
-    }
-    if (amount > __INT_MAX__ || (int)amount > __INT_MAX__ - getHP())
-    {
-        std::cout << getName() << ": unsafe operation" << std::endl;
-        return;
-    }
-    setHP(getHP() + amount);
-    setEnergy(getEnergy() - 1);
-    std::cout << "FragTrap " << getName()
-              << " is repaired by " << amount << " hit points" << std::endl;
-}
-
 void FragTrap::highFivesGuys()
 {
     std::cout << "FragTrap: high five!" << std::endl;

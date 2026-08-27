@@ -116,7 +116,7 @@ void ClapTrap::takeDamage(unsigned int amount)
         return;
     }
     setHP(getHP() - amount);
-    std::cout << "ClapTrap " << getName()
+    std::cout << getName()
               << " takes " << amount << " points of damage" << std::endl;
 }
 
@@ -139,6 +139,6 @@ void ClapTrap::beRepaired(unsigned int amount)
     }
     setHP(getHP() + amount);
     setEnergy(getEnergy() - 1);
-    std::cout << "ClapTrap " << getName()
+    std::cout << getName()
               << " is repaired by " << amount << " hit points" << std::endl;
 }
