@@ -36,7 +36,6 @@ Brain::~Brain()
 
 void Brain::setThought(const std::string &thought, int no)
 {
-    ideas[no] != thought;
     ideas[no] = thought;
 }
 

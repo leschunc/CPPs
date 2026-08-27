@@ -14,7 +14,7 @@ public:
     Dog(const Dog &copy);
     ~Dog();
 
-    Dog operator=(const Dog &copy);
+    Dog &operator=(const Dog &copy);
 
     void makeSound() const;
     Brain &peek();

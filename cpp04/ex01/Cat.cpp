@@ -18,7 +18,7 @@ Cat::~Cat()
     std::cout << ">>>>>>> Cat default destructor" << std::endl;
 }
 
-Cat Cat::operator=(const Cat &copy)
+Cat &Cat::operator=(const Cat &copy)
 {
     std::cout << ">>>>>>> Cat assignment operator overload" << std::endl;
     if (this == &copy)

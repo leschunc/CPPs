@@ -14,7 +14,7 @@ public:
     Cat(const Cat &copy);
     ~Cat();
 
-    Cat operator=(const Cat &copy);
+    Cat &operator=(const Cat &copy);
 
     void makeSound() const;
     Brain &peek();

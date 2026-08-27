@@ -13,7 +13,7 @@ public:
     Animal(const Animal& copy);
     virtual ~Animal();
 
-    virtual Animal &operator=(const Animal& copy);
+    Animal &operator=(const Animal& copy);
 
     void setType(const std::string &type);
     const std::string& getType() const;

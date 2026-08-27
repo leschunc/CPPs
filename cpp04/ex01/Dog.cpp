@@ -18,7 +18,7 @@ Dog::~Dog()
     std::cout << ">>>>>>> Dog default destructor" << std::endl;
 }
 
-Dog Dog::operator=(const Dog &copy)
+Dog &Dog::operator=(const Dog &copy)
 {
     std::cout << ">>>>>>> Dog assignment operator overload" << std::endl;
     if (this == &copy)
@@ -30,7 +30,7 @@ Dog Dog::operator=(const Dog &copy)
 
 void Dog::makeSound() const
 {
-    std::cout << "Meow" << std::endl;
+    std::cout << "Bark" << std::endl;
 }
 
 Brain &Dog::peek()

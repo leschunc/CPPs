@@ -64,9 +64,9 @@ int main()
 
     // copyTest();
 
-    // wrongTest();
+    wrongTest();
 
-    // wrongCopyTest();
+    wrongCopyTest();
 
     const Animal *meta = new Animal();
     const Animal *j = new Dog();
@@ -84,5 +84,6 @@ int main()
     delete j;
     delete meta;
 
+    std::cout << "------------" << std::endl;
     return 0;
 }
