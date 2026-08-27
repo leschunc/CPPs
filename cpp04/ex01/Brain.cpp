@@ -39,7 +39,7 @@ void Brain::setThought(const std::string &thought, int no)
     ideas[no] = thought;
 }
 
-const std::string &Brain::getThought(int no)
+const std::string &Brain::getThought(int no) const
 {
     return ideas[no];
 }
