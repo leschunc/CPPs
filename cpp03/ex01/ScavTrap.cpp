@@ -60,46 +60,6 @@ void ScavTrap::attack(const std::string &target)
               << getAD() << " points of damage" << std::endl;
 }
 
-void ScavTrap::takeDamage(unsigned int amount)
-{
-    if (getHP() <= 0)
-    {
-        std::cout << getName() << ": can't take damage: it's dead" << std::endl;
-        return;
-    }
-    if (amount > __INT_MAX__ || (getHP() - (int)amount) > getHP())
-    {
-        std::cout << getName() << ": unsafe operation" << std::endl;
-        return;
-    }
-    setHP(getHP() - amount);
-    std::cout << "ScavTrap " << getName()
-              << " takes " << amount << " points of damage" << std::endl;
-}
-
-void ScavTrap::beRepaired(unsigned int amount)
-{
-    if (getEnergy() <= 0)
-    {
-        std::cout << getName() << ": can't be repaired: no energy" << std::endl;
-        return;
-    }
-    if (getHP() <= 0)
-    {
-        std::cout << getName() << ": can't be repaired: it's dead" << std::endl;
-        return;
-    }
-    if (amount > __INT_MAX__ || (int)amount > __INT_MAX__ - getHP())
-    {
-        std::cout << getName() << ": unsafe operation" << std::endl;
-        return;
-    }
-    setHP(getHP() + amount);
-    setEnergy(getEnergy() - 1);
-    std::cout << "ScavTrap " << getName()
-              << " is repaired by " << amount << " hit points" << std::endl;
-}
-
 void ScavTrap::guardGate()
 {
     std::cout << "ScavTrap is now in Gate keeper mode" << std::endl;

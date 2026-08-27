@@ -31,8 +31,13 @@ void inheriranceTest()
     ScavTrap a;
 
     a.setName("miguel");
+    
+    a.attack("outro");
 
-    std::cout << a.getName() << std::endl;
+    a.beRepaired(100);
+
+    a.takeDamage(20);
+    
 }
 
 int main()
