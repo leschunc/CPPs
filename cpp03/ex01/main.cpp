@@ -38,11 +38,11 @@ void inheriranceTest()
 int main()
 {
 
-    // scopeTest();
+    scopeTest();
 
     constructorTest();
 
-    // inheriranceTest();
+    inheriranceTest();
 
     return 0;
 }

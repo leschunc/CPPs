@@ -37,10 +37,7 @@ ScavTrap &ScavTrap::operator=(const ScavTrap &other)
     std::cout << ">>> ScavTrap assignment operator overload" << std::endl;
     if (this != &other)
     {
-        name = other.name;
-        HP = other.HP;
-        Energy = other.Energy;
-        AD = other.AD;
+        ClapTrap::operator=(other);
     }
     return *this;
 }

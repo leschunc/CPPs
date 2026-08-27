@@ -50,11 +50,11 @@ void scopeTest()
 int main()
 {
 
-    // trioTest();
+    trioTest();
 
     exhaustTest();
 
-    // scopeTest();
+    scopeTest();
 
     return 0;
 }

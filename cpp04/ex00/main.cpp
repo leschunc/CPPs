@@ -66,11 +66,11 @@ void wrongCopyTest()
 int main()
 {
 
-    // copyTest();
+    copyTest();
 
-    // wrongTest();
+    wrongTest();
 
-    // wrongCopyTest();
+    wrongCopyTest();
 
     const Animal *meta = new Animal();
     const Animal *j = new Dog();

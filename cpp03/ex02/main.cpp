@@ -54,13 +54,13 @@ void overFlowTest()
 int main()
 {
 
-    // scopeTest();
+    scopeTest();
 
-    // constructorTest();
+    constructorTest();
 
-    // inheriranceTest();
+    inheriranceTest();
 
-    // individualityTest();
+    individualityTest();
 
     overFlowTest();
 
