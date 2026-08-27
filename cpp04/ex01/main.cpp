@@ -94,11 +94,11 @@ Cat deepCatter()
 {
     Cat deespestCat;
 
-    deespestCat.peek().setThought("out-thought", 0);
+    deespestCat.peek()->setThought("out-thought", 0);
 
     Cat deepCat = deespestCat;
 
-    deespestCat.peek().setThought("in-thought", 0);
+    deespestCat.peek()->setThought("in-thought", 0);
 
     std::cout << "------------" << std::endl;
 
@@ -109,7 +109,7 @@ void shallowTest()
 {
     Cat midCat = deepCatter();
 
-    std::cout << midCat.peek().getThought(0) << std::endl;
+    std::cout << midCat.peek()->getThought(0) << std::endl;
 }
 
 void subjectTest()
@@ -140,11 +140,25 @@ int main()
 
     // wrongCopyTest();
 
-    evalTest();
+    // evalTest();
 
-    subjectTest();
+    // subjectTest();
 
     shallowTest();
+
+    // Cat *a = new Cat;
+
+    // a->peek()->setThought("soygato", 0);
+
+    // Cat b;
+
+    // b = *a;
+
+    // a->peek()->setThought("nosoygato", 0);
+
+    // delete a;
+
+    // std::cout << b.peek()->getThought(0) << std::endl;
 
     // delete a;
 

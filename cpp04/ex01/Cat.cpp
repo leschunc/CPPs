@@ -4,18 +4,20 @@ Cat::Cat()
 {
     std::cout << ">>>>>>> Cat default constructor" << std::endl;
     setType("Cat");
+    brain = new Brain;
 }
 
 Cat::Cat(const Cat &copy) : Animal (copy)
 {
     std::cout << ">>>>>>> Cat copy constructor" << std::endl;
     setType(copy.getType());
-    brain = copy.brain;
+    *brain = *copy.brain;
 }
 
 Cat::~Cat()
 {
     std::cout << ">>>>>>> Cat default destructor" << std::endl;
+    delete brain;
 }
 
 Cat &Cat::operator=(const Cat &copy)
@@ -24,7 +26,7 @@ Cat &Cat::operator=(const Cat &copy)
     if (this == &copy)
         return *this;
     setType(copy.getType());
-    brain = copy.brain;
+    *brain = *copy.brain;
     return *this;
 }
 
@@ -33,7 +35,7 @@ void Cat::makeSound() const
     std::cout << "Meow" << std::endl;
 }
 
-Brain &Cat::peek()
+Brain *Cat::peek()
 {
     return this->brain;
 }
