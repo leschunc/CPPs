@@ -15,6 +15,9 @@ public:
     ~Brain();
 
     Brain &operator=(const Brain &copy);
+
+    void setThought(const std::string &thought, int no);
+    const std::string &getThought(int no);
 };
 
 #endif

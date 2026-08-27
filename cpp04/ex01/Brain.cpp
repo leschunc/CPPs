@@ -33,3 +33,14 @@ Brain::~Brain()
     std::cout << ">>>>>>> Brain default destructor " << std::endl;
     delete[] ideas;
 }
+
+void Brain::setThought(const std::string &thought, int no)
+{
+    ideas[no] != thought;
+    ideas[no] = thought;
+}
+
+const std::string &Brain::getThought(int no)
+{
+    return ideas[no];
+}

@@ -80,6 +80,7 @@ void evalTest()
     delete meta;
     delete i;
     delete j;
+    std::cout << "------------" << std::endl;
 }
 
 void schrodTest()
@@ -99,20 +100,41 @@ void shallowTest()
     std::cout << "------------" << std::endl;
 }
 
+void subjectTest()
+{
+    Animal *animals[10];
+
+    for (size_t i = 0; i < 10; i++)
+    {
+        if (i % 2 == 0)
+            animals[i] = new Cat;
+        else
+            animals[i] = new Dog;
+    }
+    for (size_t i = 0; i < 10; i++)
+    {
+        animals[i]->makeSound();
+        delete animals[i];
+    }
+    std::cout << "------------" << std::endl;
+}
+
 int main()
 {
 
-    copyTest();
+    // copyTest();
 
-    wrongTest();
+    // wrongTest();
 
-    wrongCopyTest();
+    // wrongCopyTest();
 
     evalTest();
 
-    shallowTest();
+    subjectTest();
 
-    schrodTest();
+    // shallowTest();
+
+    // schrodTest();
 
     return 0;
 }
