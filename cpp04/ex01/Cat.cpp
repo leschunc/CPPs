@@ -11,6 +11,7 @@ Cat::Cat(const Cat &copy) : Animal (copy)
 {
     std::cout << ">>>>>>> Cat copy constructor" << std::endl;
     setType(copy.getType());
+    brain = new Brain;
     *brain = *copy.brain;
 }
 

@@ -5,6 +5,7 @@
 #include "WrongCat.hpp"
 #include <cstdlib>
 
+// this shows I can work with either const or non const animals
 void copyTest()
 {
     Animal a;
@@ -35,35 +36,8 @@ void copyTest()
     std::cout << "------------" << std::endl;
 }
 
-void wrongTest()
-{
-    const WrongAnimal *ani = new WrongAnimal();
-    const WrongAnimal *gatu = new WrongCat();
-
-    ani->makeSound();
-    gatu->makeSound();
-    delete ani;
-    delete gatu;
-    std::cout << "------------" << std::endl;
-}
-
-void wrongCopyTest()
-{
-    WrongAnimal a;
-
-    WrongAnimal b;
-
-    WrongCat c;
-
-    WrongCat d;
-
-    c = d;
-
-    b = a;
-    std::cout << "------------" << std::endl;
-}
-
-void evalTest()
+// output example from subject part 1
+void subjectOneTest()
 {
     const Animal *meta = new Animal();
     const Animal *j = new Dog();
@@ -83,36 +57,9 @@ void evalTest()
     std::cout << "------------" << std::endl;
 }
 
-void schrodTest()
-{
-    Cat cat;
-    Cat catcat(cat);
-    std::cout << "------------" << std::endl;
-}
 
-Cat deepCatter()
-{
-    Cat deespestCat;
-
-    deespestCat.peek()->setThought("out-thought", 0);
-
-    Cat deepCat = deespestCat;
-
-    deespestCat.peek()->setThought("in-thought", 0);
-
-    std::cout << "------------" << std::endl;
-
-    return deepCat;
-}
-
-void shallowTest()
-{
-    Cat midCat = deepCatter();
-
-    std::cout << midCat.peek()->getThought(0) << std::endl;
-}
-
-void subjectTest()
+// Subject part two
+void subjectTwoTest()
 {
     Animal *animals[10];
 
@@ -131,38 +78,98 @@ void subjectTest()
     std::cout << "------------" << std::endl;
 }
 
+// easy test to show a ¿cat? blink is space-time
+void schrodTest()
+{
+    Cat cat;
+    Cat catcat(cat);
+    std::cout << "------------" << std::endl;
+}
+
+// demoes how thoughts in inner scopes get copied to outer scopes
+Cat deepCatter()
+{
+    Cat deespestCat;
+
+    deespestCat.peek()->setThought("out-thought", 0);
+
+    Cat deepCat = deespestCat;
+
+    deespestCat.peek()->setThought("in-thought", 0);
+
+    return deepCat;
+}
+
+// same 
+void shallowTest()
+{
+    Cat midCat = deepCatter();
+
+    midCat.makeSound();
+
+    std::cout << midCat.peek()->getThought(0) << std::endl;
+    std::cout << "------------" << std::endl;
+}
+
+// same 
+Dog dogDeeper()
+{
+    Dog deespestDog;
+
+    deespestDog.peek()->setThought("out-thought", 0);
+
+    Dog deepDog = deespestDog;
+
+    deespestDog.peek()->setThought("in-thought", 0);
+
+    return deepDog;
+}
+
+// same 
+void dogSameTest()
+{
+    Dog midDog = dogDeeper();
+
+    midDog.makeSound();
+
+    std::cout << midDog.peek()->getThought(0) << std::endl;
+    std::cout << "------------" << std::endl;
+}
+
+// deep copy with deletion
+void simpleTest()
+{
+    Cat *a = new Cat;
+
+    a->peek()->setThought("soygato", 0);
+
+    Cat b;
+
+    b = *a;
+
+    a->peek()->setThought("nosoygato", 0);
+
+    delete a;
+
+    std::cout << b.peek()->getThought(0) << std::endl;
+    std::cout << "------------" << std::endl;
+}
+
 int main()
 {
-
+    subjectOneTest();
+    
+    subjectTwoTest();
+    
+    shallowTest();
+    
+    // dogSameTest();
+    
     // copyTest();
 
-    // wrongTest();
-
-    // wrongCopyTest();
-
-    // evalTest();
-
-    // subjectTest();
-
-    shallowTest();
-
-    // Cat *a = new Cat;
-
-    // a->peek()->setThought("soygato", 0);
-
-    // Cat b;
-
-    // b = *a;
-
-    // a->peek()->setThought("nosoygato", 0);
-
-    // delete a;
-
-    // std::cout << b.peek()->getThought(0) << std::endl;
-
-    // delete a;
-
     // schrodTest();
+
+    // simpleTest();
 
     return 0;
 }
