@@ -132,7 +132,7 @@ void ClapTrap::beRepaired(unsigned int amount)
         std::cout << getName() << ": can't be repaired: it's dead" << std::endl;
         return;
     }
-    if (amount > __INT_MAX__ || (getHP() + (int)amount) < getHP())
+    if (amount > __INT_MAX__ || (int)amount > __INT_MAX__ - getHP())
     {
         std::cout << getName() << ": unsafe operation" << std::endl;
         return;
