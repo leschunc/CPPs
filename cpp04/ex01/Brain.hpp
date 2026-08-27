@@ -3,7 +3,6 @@
 
 #include <iostream>
 #define BIGBRAIN 100
-#define DEBUG false
 
 class Brain
 {
