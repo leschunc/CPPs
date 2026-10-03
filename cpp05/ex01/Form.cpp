@@ -59,7 +59,7 @@ void Form::beSigned(const Bureaucrat &worker)
 {
     this->signedDoc = true;
     if (this->signGrade < worker.getGrade())
-        throw GradeTooHighException();
+        throw Form::GradeTooLowException();
 }
 
 std::ostream &operator<<(std::ostream &os, const Form &ref)

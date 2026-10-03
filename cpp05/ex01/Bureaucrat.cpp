@@ -50,11 +50,11 @@ void Bureaucrat::signForm(Form &paper) const
 	try
 	{
 		paper.beSigned(*this);
-		std::cout << "Form signed successfully!\n";
+		std::cout << this->getName() << " signed " << paper.getName() << "\n";
 	}
-	catch(Form::GradeTooHighException &e)
+	catch(Form::GradeTooLowException &e)
 	{
-		std::cerr << "Form not signed, reason: " << e.what() << "\n";
+		std::cerr << this->getName() << " couldn’t sign " << paper.getName() << " because " << e.what() << "\n";
 	}
 }
 
