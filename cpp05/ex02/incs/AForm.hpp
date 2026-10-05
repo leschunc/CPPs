@@ -24,7 +24,7 @@ public:
     const AForm &operator=(const AForm &ref);
 
     const std::string &getName() const;
-    int getSignedDoc() const;
+    bool getSignedDoc() const;
     int getSignGrade() const;
     int getExecGrade() const;
 
@@ -47,7 +47,16 @@ public:
     public:
         const char *what() const throw()
         {
-            return "Form's grade too low";
+            return "Bureaucrat's grade too low";
+        }
+    };
+
+    class UnsignedForm : public std::exception
+    {
+    public:
+        const char *what() const throw()
+        {
+            return "Form is unsigned";
         }
     };
 };

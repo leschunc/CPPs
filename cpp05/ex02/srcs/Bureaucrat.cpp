@@ -45,16 +45,33 @@ std::ostream &operator<<(std::ostream &os, const Bureaucrat &ref)
 	return os;
 }
 
-void Bureaucrat::signForm(AForm &paper) const
+void Bureaucrat::signForm(AForm &form) const
 {
 	try
 	{
-		paper.beSigned(*this);
-		std::cout << this->getName() << " signed " << paper.getName() << "\n";
+		form.beSigned(*this);
+		std::cout << this->getName() << " signed " << form.getName() << "\n";
 	}
-	catch(AForm::GradeTooLowException &e)
+	catch (AForm::GradeTooLowException &e)
 	{
-		std::cerr << this->getName() << " couldn’t sign " << paper.getName() << " because " << e.what() << "\n";
+		std::cerr << this->getName() << " couldn’t sign " << form.getName() << " because " << e.what() << "\n";
+	}
+}
+
+void Bureaucrat::executeForm(AForm const &form) const
+{
+	try
+	{
+		form.execute(*this);
+		std::cout << this->getName() << " executed " << form.getName() << "\n";
+	}
+	catch (AForm::GradeTooLowException &e)
+	{
+		std::cerr << this->getName() << " couldn’t execute " << form.getName() << " because " << e.what() << "\n";
+	}
+	catch (AForm::UnsignedForm &e)
+	{
+		std::cerr << this->getName() << " couldn’t execute " << form.getName() << " because " << e.what() << "\n";
 	}
 }
 

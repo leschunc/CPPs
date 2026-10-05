@@ -15,7 +15,7 @@ AForm::AForm(const AForm &ref) : name(ref.name), signedDoc(ref.signedDoc), signG
         throw GradeTooHighException();
 }
 
-AForm::AForm(const std::string &name, int signGrade, int execGrade) : name(name), signGrade(signGrade), execGrade(execGrade)
+AForm::AForm(const std::string &name, int signGrade, int execGrade) : name(name), signedDoc(false), signGrade(signGrade), execGrade(execGrade)
 {
     if (signGrade > 150 || execGrade > 150)
         throw GradeTooLowException();
@@ -40,7 +40,7 @@ const std::string &AForm::getName() const
     return name;
 }
 
-int AForm::getSignedDoc() const
+bool AForm::getSignedDoc() const
 {
     return signedDoc;
 }
@@ -62,14 +62,18 @@ void AForm::setSignedDoc(bool signedness)
 
 void AForm::beSigned(const Bureaucrat &worker)
 {
-    this->signedDoc = true;
     if (this->signGrade < worker.getGrade())
         throw AForm::GradeTooLowException();
+    this->signedDoc = true;
 }
 
 void AForm::execute(Bureaucrat const &executor) const
 {
-    if (this->signGrade < executor.getGrade())
+    if (this->getSignedDoc() == false)
+    {
+        throw AForm::UnsignedForm();
+    }
+    if (this->execGrade < executor.getGrade())
         throw AForm::GradeTooLowException();
 }
 
