@@ -20,15 +20,6 @@ public:
 	void setTarget(const std::string &target);
 
 	void execute(Bureaucrat const &executor) const;
-
-	class FailedRobotomy : public std::exception
-	{
-	public:
-		const char *what() const throw()
-		{
-			return "Robotomy failed";
-		}
-	};
 };
 
 #endif

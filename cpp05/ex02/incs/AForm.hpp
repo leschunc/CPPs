@@ -1,7 +1,6 @@
 #ifndef AFORM_HPP
 #define AFORM_HPP
 
-// #include "Bureaucrat.hpp"
 #include <iostream>
 #include <cmath>
 
@@ -47,7 +46,7 @@ public:
     public:
         const char *what() const throw()
         {
-            return "Bureaucrat's grade too low";
+            return "Form's grade too low";
         }
     };
 

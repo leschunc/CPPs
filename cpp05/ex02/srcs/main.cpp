@@ -19,7 +19,25 @@ int main()
 	Bureaucrat boss("boss", 1);
 	Bureaucrat peasant("peasant", 150);
 
-	PresidentialPardonForm pardon("Jesus");
+	PresidentialPardonForm pardon("Lara");
+	RobotomyRequestForm surgery("Lula");
+	ShrubberyCreationForm seeds("Home");
+
+	peasant.signForm(seeds);
+	boss.signForm(seeds);
+
+	peasant.executeForm(seeds);
+	boss.executeForm(seeds);
+
+	std::cout << "------------------------------\n";
+
+	peasant.signForm(surgery);
+	boss.signForm(surgery);
+
+	peasant.executeForm(surgery);
+	boss.executeForm(surgery);
+
+	std::cout << "------------------------------\n";
 
 	peasant.signForm(pardon);
 	boss.signForm(pardon);
