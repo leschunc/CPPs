@@ -22,7 +22,7 @@ int main()
 	// AForm simpleForm("Papelito", 50, 150);
 
 	peasant.signForm(form);
-	// boss.signForm(form);
+	boss.signForm(form);
 
 	peasant.executeForm(form);
 	boss.executeForm(form);

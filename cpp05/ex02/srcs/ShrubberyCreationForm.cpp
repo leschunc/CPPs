@@ -1,6 +1,6 @@
 #include "ShrubberyCreationForm.hpp"
 
-ShrubberyCreationForm::ShrubberyCreationForm() : AForm("ShrubberyCreationForm", 145, 137) {}
+ShrubberyCreationForm::ShrubberyCreationForm() : AForm("ShrubberyCreationForm", 145, 137), target("") {}
 ShrubberyCreationForm::ShrubberyCreationForm(const std::string &target) : AForm("ShrubberyCreationForm", 145, 137), target(target) {}
 ShrubberyCreationForm::ShrubberyCreationForm(const ShrubberyCreationForm &ref) : AForm(ref), target(ref.target)
 {
@@ -18,3 +18,17 @@ const ShrubberyCreationForm &ShrubberyCreationForm::operator=(const ShrubberyCre
 const std::string &ShrubberyCreationForm::getTarget() const { return target; }
 
 void ShrubberyCreationForm::setTarget(const std::string &target) { this->target = target; }
+
+void ShrubberyCreationForm::execute(Bureaucrat const &executor) const
+{
+    AForm::execute(executor);
+
+    std::string fileName = target + "_shrubbery";
+
+    std::ofstream file(fileName.c_str());
+
+    if (file.good() == false)
+        throw std::runtime_error("File isn't good");
+
+    file << "ASCII trees\ninside it";
+}

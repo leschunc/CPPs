@@ -73,6 +73,10 @@ void Bureaucrat::executeForm(AForm const &form) const
 	{
 		std::cerr << this->getName() << " couldn’t execute " << form.getName() << " because " << e.what() << "\n";
 	}
+	catch (std::exception& e)
+	{
+		std::cerr << "Something is wrong: " << e.what() << "\n";
+	}
 }
 
 void Bureaucrat::incrementGrade()

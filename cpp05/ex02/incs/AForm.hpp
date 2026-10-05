@@ -31,7 +31,7 @@ public:
     void setSignedDoc(bool signedness);
 
     void beSigned(const Bureaucrat &worker);
-    void execute(Bureaucrat const &executor) const;
+    virtual void execute(Bureaucrat const &executor) const;
 
     class GradeTooHighException : public std::exception
     {
