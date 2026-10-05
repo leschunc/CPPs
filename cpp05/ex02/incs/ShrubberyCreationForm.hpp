@@ -21,6 +21,15 @@ public:
 	void setTarget(const std::string &target);
 
 	void execute(Bureaucrat const &executor) const;
+
+	class Shrubbent : public std::exception
+    {
+    public:
+        const char *what() const throw()
+        {
+            return "Shrubben't";
+        }
+    };
 };
 
 #endif

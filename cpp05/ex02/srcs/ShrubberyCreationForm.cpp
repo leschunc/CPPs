@@ -1,6 +1,6 @@
 #include "ShrubberyCreationForm.hpp"
 
-ShrubberyCreationForm::ShrubberyCreationForm() : AForm("ShrubberyCreationForm", 145, 137), target("") {}
+ShrubberyCreationForm::ShrubberyCreationForm() : AForm("ShrubberyCreationForm", 145, 137), target("Unspecified target") {}
 ShrubberyCreationForm::ShrubberyCreationForm(const std::string &target) : AForm("ShrubberyCreationForm", 145, 137), target(target) {}
 ShrubberyCreationForm::ShrubberyCreationForm(const ShrubberyCreationForm &ref) : AForm(ref), target(ref.target)
 {
@@ -11,7 +11,7 @@ ShrubberyCreationForm::~ShrubberyCreationForm() {}
 const ShrubberyCreationForm &ShrubberyCreationForm::operator=(const ShrubberyCreationForm &ref)
 {
     AForm::operator=(ref);
-    this->target = ref.target;
+    this->target = ref.getTarget();
     return *this;
 }
 
@@ -28,7 +28,7 @@ void ShrubberyCreationForm::execute(Bureaucrat const &executor) const
     std::ofstream file(fileName.c_str());
 
     if (file.good() == false)
-        throw std::runtime_error("File isn't good");
+        throw Shrubbent();
 
     file << "ASCII trees\ninside it";
 }

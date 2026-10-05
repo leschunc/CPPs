@@ -1,5 +1,7 @@
 #include "Bureaucrat.hpp"
 #include "ShrubberyCreationForm.hpp"
+#include "RobotomyRequestForm.hpp"
+#include "PresidentialPardonForm.hpp"
 #include <cmath>
 #include <sys/time.h>
 
@@ -17,15 +19,13 @@ int main()
 	Bureaucrat boss("boss", 1);
 	Bureaucrat peasant("peasant", 150);
 
-	ShrubberyCreationForm form("Garden");
+	PresidentialPardonForm pardon("Jesus");
 
-	// AForm simpleForm("Papelito", 50, 150);
+	peasant.signForm(pardon);
+	boss.signForm(pardon);
 
-	peasant.signForm(form);
-	boss.signForm(form);
-
-	peasant.executeForm(form);
-	boss.executeForm(form);
+	peasant.executeForm(pardon);
+	boss.executeForm(pardon);
 
 	return 0;
 }
