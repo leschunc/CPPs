@@ -26,10 +26,13 @@ all: $(NAME)
 clean:
 	@rm -rf $(OBJS_DIR)
 
-fclean: clean
+fclean: clean prune
 	@rm -f $(NAME)
+
+prune:
+	@rm -f *_shrubbery
 
 re: fclean all
 
 .DEFAULT_GOAL := all
-.PHONY: all clean fclean re
+.PHONY: all clean fclean re prune

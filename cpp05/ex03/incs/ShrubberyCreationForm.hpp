@@ -2,6 +2,7 @@
 #define SHRUBBERRYCREATIONFORM_HPP
 
 #include "AForm.hpp"
+#include "Bureaucrat.hpp"
 #include <fstream>
 
 class ShrubberyCreationForm : public AForm
@@ -11,7 +12,7 @@ private:
 
 public:
 	ShrubberyCreationForm();
-	ShrubberyCreationForm(const std::string &name);
+	ShrubberyCreationForm(const std::string &target);
 	ShrubberyCreationForm(const ShrubberyCreationForm &ref);
 	~ShrubberyCreationForm();
 

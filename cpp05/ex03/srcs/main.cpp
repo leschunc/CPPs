@@ -2,6 +2,7 @@
 #include "ShrubberyCreationForm.hpp"
 #include "RobotomyRequestForm.hpp"
 #include "PresidentialPardonForm.hpp"
+#include "Intern.hpp"
 #include <cmath>
 #include <sys/time.h>
 
@@ -16,34 +17,51 @@ int main()
 {
 	seed();
 
+	Intern a;
+	AForm *genericForm;
+
+	genericForm = a.makeForm("shrubbery creation", "targedy");
+
 	Bureaucrat boss("boss", 1);
-	Bureaucrat peasant("peasant", 150);
 
-	PresidentialPardonForm pardon("Lara");
-	RobotomyRequestForm surgery("Lula");
-	ShrubberyCreationForm seeds("Home");
+	boss.signForm(*genericForm);
+	
+	Bureaucrat peasant("peasy", 150);
+	
+	peasant.executeForm(*genericForm);
 
-	peasant.signForm(seeds);
-	boss.signForm(seeds);
+	// std::cout << "not here\n";
 
-	peasant.executeForm(seeds);
-	boss.executeForm(seeds);
+	boss.executeForm(*genericForm);
 
-	std::cout << "------------------------------\n";
+	delete genericForm;
+	// Bureaucrat peasant("peasant", 150);
 
-	peasant.signForm(surgery);
-	boss.signForm(surgery);
+	// PresidentialPardonForm pardon("Lara");
+	// RobotomyRequestForm surgery("Lula");
+	// ShrubberyCreationForm seeds("Home");
 
-	peasant.executeForm(surgery);
-	boss.executeForm(surgery);
+	// peasant.signForm(seeds);
+	// boss.signForm(seeds);
 
-	std::cout << "------------------------------\n";
+	// peasant.executeForm(seeds);
+	// boss.executeForm(seeds);
 
-	peasant.signForm(pardon);
-	boss.signForm(pardon);
+	// std::cout << "------------------------------\n";
 
-	peasant.executeForm(pardon);
-	boss.executeForm(pardon);
+	// peasant.signForm(surgery);
+	// boss.signForm(surgery);
+
+	// peasant.executeForm(surgery);
+	// boss.executeForm(surgery);
+
+	// std::cout << "------------------------------\n";
+
+	// peasant.signForm(pardon);
+	// boss.signForm(pardon);
+
+	// peasant.executeForm(pardon);
+	// boss.executeForm(pardon);
 
 	return 0;
 }

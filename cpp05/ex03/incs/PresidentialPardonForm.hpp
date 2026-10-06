@@ -2,6 +2,8 @@
 #define PRESIDENTIALPARDONFORM_HPP
 
 #include "AForm.hpp"
+#include "Bureaucrat.hpp"
+#include <string>
 
 class PresidentialPardonForm : public AForm
 {
@@ -10,7 +12,7 @@ private:
 
 public:
 	PresidentialPardonForm();
-	PresidentialPardonForm(const std::string &name);
+	PresidentialPardonForm(const std::string &target);
 	PresidentialPardonForm(const PresidentialPardonForm &ref);
 	~PresidentialPardonForm();
 

@@ -2,6 +2,8 @@
 #define ROBOTOMYREQUESTFORM_HPP
 
 #include "AForm.hpp"
+#include <string>
+#include "Bureaucrat.hpp"
 
 class RobotomyRequestForm : public AForm
 {
@@ -10,7 +12,7 @@ private:
 
 public:
 	RobotomyRequestForm();
-	RobotomyRequestForm(const std::string &name);
+	RobotomyRequestForm(const std::string &target);
 	RobotomyRequestForm(const RobotomyRequestForm &ref);
 	~RobotomyRequestForm();
 
