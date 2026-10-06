@@ -17,57 +17,27 @@ int main()
 {
 	seed();
 
-	Intern a;
+	Bureaucrat boss("boss", 1);
+	Bureaucrat peasant("peasy", 150);
+	Intern pedro;
 	AForm *genericForm;
 
-	genericForm = a.makeForm("shrubbery creation", "targedy");
+	std::string arr[] = {"shrubbery creation", "robotomy request", "presidential pardon"};
+	std::string targets[] = {"goncalo", "denisa", "ricardo"};
 
-	if (!genericForm)
+	for (size_t i = 0; i < 4; i++)
 	{
-		std::cerr << "Failed to create a form\n";
-		return 1;
+		genericForm = pedro.makeForm(arr[rand() % 3], targets[rand() % 3]);
+		if (!genericForm)
+		{
+			std::cerr << "Failed to create a form\n";
+			return 1;
+		}
+		boss.signForm(*genericForm);
+		peasant.executeForm(*genericForm);
+		boss.executeForm(*genericForm);
+		std::cout << "___________________________\n";
+		delete genericForm;
 	}
-
-	Bureaucrat boss("boss", 1);
-
-	boss.signForm(*genericForm);
-
-	Bureaucrat peasant("peasy", 150);
-
-	peasant.executeForm(*genericForm);
-
-	// std::cout << "not here\n";
-
-	boss.executeForm(*genericForm);
-
-	delete genericForm;
-	// Bureaucrat peasant("peasant", 150);
-
-	// PresidentialPardonForm pardon("Lara");
-	// RobotomyRequestForm surgery("Lula");
-	// ShrubberyCreationForm seeds("Home");
-
-	// peasant.signForm(seeds);
-	// boss.signForm(seeds);
-
-	// peasant.executeForm(seeds);
-	// boss.executeForm(seeds);
-
-	// std::cout << "------------------------------\n";
-
-	// peasant.signForm(surgery);
-	// boss.signForm(surgery);
-
-	// peasant.executeForm(surgery);
-	// boss.executeForm(surgery);
-
-	// std::cout << "------------------------------\n";
-
-	// peasant.signForm(pardon);
-	// boss.signForm(pardon);
-
-	// peasant.executeForm(pardon);
-	// boss.executeForm(pardon);
-
 	return 0;
 }
