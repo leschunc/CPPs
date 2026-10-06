@@ -14,6 +14,8 @@ private:
     const int signGrade;
     const int execGrade;
 
+    void setSignedDoc(bool signedness);
+
 public:
     AForm();
     AForm(const std::string &name, int signGrade, int execGrade);
@@ -27,7 +29,6 @@ public:
     int getSignGrade() const;
     int getExecGrade() const;
 
-    void setSignedDoc(bool signedness);
 
     void beSigned(const Bureaucrat &worker);
     virtual void execute(Bureaucrat const &executor) const;

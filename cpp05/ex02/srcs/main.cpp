@@ -20,6 +20,8 @@ int main()
 	Bureaucrat peasant("peasant", 150);
 
 	PresidentialPardonForm pardon("Lara");
+
+	// pardon.beSigned(boss);
 	RobotomyRequestForm surgery("Lula");
 	ShrubberyCreationForm seeds("Home");
 

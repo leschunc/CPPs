@@ -19,7 +19,7 @@ const Intern &Intern::operator=(const Intern &copy)
 AForm *Intern::makeForm(const std::string &form, const std::string &target)
 {
     std::string arr[] = {"shrubbery creation", "robotomy request", "presidential pardon"};
-    int index = 0;
+    int index = -1;
 
     for (size_t i = 0; i < 3; i++)
     {

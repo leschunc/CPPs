@@ -15,7 +15,7 @@ Form::Form(const Form &ref) : name(ref.name), signedDoc(ref.signedDoc), signGrad
         throw GradeTooHighException();
 }
 
-Form::Form(const std::string &name, int signGrade, int execGrade) : name(name), signGrade(signGrade), execGrade(execGrade)
+Form::Form(const std::string &name, int signGrade, int execGrade) : name(name), signedDoc(false), signGrade(signGrade), execGrade(execGrade)
 {
     if (signGrade > 150 || execGrade > 150)
         throw GradeTooLowException();
@@ -57,9 +57,9 @@ int Form::getExecGrade() const
 
 void Form::beSigned(const Bureaucrat &worker)
 {
-    this->signedDoc = true;
     if (this->signGrade < worker.getGrade())
         throw Form::GradeTooLowException();
+    this->signedDoc = true;
 }
 
 std::ostream &operator<<(std::ostream &os, const Form &ref)
