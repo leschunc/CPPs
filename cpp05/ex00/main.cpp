@@ -52,7 +52,6 @@ void thirdTry()
 
 int main()
 {
-	// seed
 	{
 		struct timeval now;
 		gettimeofday(&now, NULL);

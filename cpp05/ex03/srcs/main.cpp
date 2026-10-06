@@ -22,12 +22,18 @@ int main()
 
 	genericForm = a.makeForm("shrubbery creation", "targedy");
 
+	if (!genericForm)
+	{
+		std::cerr << "Failed to create a form\n";
+		return 1;
+	}
+
 	Bureaucrat boss("boss", 1);
 
 	boss.signForm(*genericForm);
-	
+
 	Bureaucrat peasant("peasy", 150);
-	
+
 	peasant.executeForm(*genericForm);
 
 	// std::cout << "not here\n";
