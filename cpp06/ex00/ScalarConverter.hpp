@@ -15,13 +15,12 @@ private:
     static void single(const std::string &arg);
     static void multiple(const std::string &arg);
 
-public:
     ScalarConverter();
     ScalarConverter(const ScalarConverter &copy);
     ~ScalarConverter();
-
     const ScalarConverter &operator=(const ScalarConverter &copy);
 
+public:
     static void convert(const std::string &arg);
 };
 

@@ -10,8 +10,6 @@ ScalarConverter::~ScalarConverter()
 
 ScalarConverter::ScalarConverter(const ScalarConverter &copy)
 {
-    if (this == &copy)
-        return;
 }
 
 const ScalarConverter &ScalarConverter::operator=(const ScalarConverter &copy)
