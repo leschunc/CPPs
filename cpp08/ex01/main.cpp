@@ -3,9 +3,13 @@
 int main()
 {
 
-	Span a(3);
+	Span a;
 
-	
+	Span b(a);
+
+	a = b;
+
+	Span c(b);
 
 	return 0;
 
