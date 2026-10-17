@@ -1,51 +1,61 @@
 #include "Span.hpp"
+#include <iostream>
 
-Span::Span()
+Span::Span() : _size(0)
 {
-    _size = 0;
-    vec = new std::vector<int>(0);
+    _vec = std::vector<int>(_size);
 }
 
 Span::Span(const Span &ref)
 {
     if (this == &ref)
         return;
+    _vec = ref._vec;
     _size = ref._size;
-    vec = new std::vector<int>(ref._size);
-    for (unsigned int i = 0; i < _size; i++)
-        vec->at(i) = ref.vec->at(i);
 }
 
 Span::~Span()
 {
-    delete vec;
 }
 
 Span::Span(unsigned int n) : _size(n)
 {
-    vec = new std::vector<int>(n);
-    for (unsigned int i = 0; i < _size; i++)
-        vec->at(i) = 0;
+    _vec = std::vector<int>();
 }
 
 Span &Span::operator=(const Span &ref)
 {
     if (this == &ref)
         return *this;
-    // if (vec)
-    delete vec;
-    this->vec = new std::vector<int>(ref._size);
-    for (unsigned int i = 0; i < _size; i++)
-        vec->at(i) = ref.vec->at(i);
+    _vec = ref._vec;
+    _size = ref._size;
     return *this;
 }
 
-// void addNumber(int num)
+void Span::addNumber(int num)
+{
+    if (_vec.size() < _size)
+        _vec.push_back(num);
+    else
+        throw std::out_of_range("out of range");
+}
+
+void Span::disp()
+{
+    for (size_t i = 0; i < _vec.size(); i++)
+        std::cout << _vec.at(i) << " ";
+    std::cout << std::endl;
+}
+
+// int Span::shortestSpan()
 // {
+//     for (size_t i = 0; i < vec.size(); i++)
+//     {
+//         std::cout << "wee\n";
+//     }
+//     return 1;
 // }
-// int shortestSpan()
-// {
-// }
+
 // int longestSpan()
 // {
 // }
