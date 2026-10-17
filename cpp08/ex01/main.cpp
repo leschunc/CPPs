@@ -1,18 +1,18 @@
 #include "Span.hpp"
 #include <iostream>
 
-void canonTest()
+#define TINY __INT_MAX__ / 2
+
+void completeTests()
 {
 	{
 		Span a(3);
 		Span b(a);
-		a = b;
 		Span c(b);
 	}
 	{
 		const Span a(3);
 		Span b(a);
-		b = a;
 		Span c(b);
 	}
 	{
@@ -31,15 +31,45 @@ void canonTest()
 			a.disp();
 		}
 	}
+	{
+		Span a(10);
+
+		a.addNumber(1);
+		a.addNumber(2);
+		a.addNumber(8);
+		a.addNumber(15);
+		a.addNumber(2);
+
+		try
+		{
+			std::cout << a.shortestSpan() << "\n";
+			std::cout << a.longestSpan() << "\n";
+		}
+		catch (const std::exception &e)
+		{
+			std::cerr << e.what() << '\n';
+		}
+	}
+	{
+		Span a(TINY);
+		for (size_t i = 0; i < TINY; i++)
+		{
+			a.addNumber(i);
+		}
+		std::cout << a.longestSpan() << "\n\n";
+		std::cout << a.shortestSpan() << "\n\n";
+	}
 }
 
 void currentTest()
 {
+	
 }
 
 int main()
 {
-	// canonTest();
+
+	// completeTests();
 
 	currentTest();
 

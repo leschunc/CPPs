@@ -1,5 +1,6 @@
 #include "Span.hpp"
 #include <iostream>
+#include <climits>
 
 Span::Span() : _size(0)
 {
@@ -47,15 +48,36 @@ void Span::disp()
     std::cout << std::endl;
 }
 
-// int Span::shortestSpan()
-// {
-//     for (size_t i = 0; i < vec.size(); i++)
-//     {
-//         std::cout << "wee\n";
-//     }
-//     return 1;
-// }
+unsigned int Span::shortestSpan()
+{
+    if (_vec.size() < 2)
+        throw std::out_of_range("not enough elements to search");
 
-// int longestSpan()
-// {
-// }
+    long lowestDist = LONG_MAX;
+    long currentDist;
+
+    for (size_t i = 0; i < _vec.size() - 1; i++)
+    {
+        currentDist = _vec.at(i) - _vec.at(i + 1);
+        if (currentDist < 0) currentDist = -currentDist;
+        if (currentDist < lowestDist) lowestDist = currentDist;
+    }
+    return lowestDist;
+}
+
+unsigned int Span::longestSpan()
+{
+    if (_vec.size() < 2)
+        throw std::out_of_range("not enough elements to search");
+
+    int biggest = INT_MIN;
+    int smallest = INT_MAX;
+    for (size_t i = 0; i < _vec.size(); i++)
+    {
+        if (_vec.at(i) > biggest)
+            biggest = _vec.at(i);
+        if (_vec.at(i) < smallest)
+            smallest = _vec.at(i);
+    }
+    return biggest - smallest;
+}
