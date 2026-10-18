@@ -25,7 +25,8 @@ public:
     unsigned int longestSpan();
     unsigned int myShortest();
     unsigned int myLongest();
-    
+    // using ScavTrap::attack();
+
     // void fill();
 };
 

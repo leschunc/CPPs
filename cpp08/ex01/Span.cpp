@@ -48,31 +48,6 @@ void Span::disp()
     std::cout << std::endl;
 }
 
-unsigned int Span::myShortest()
-{
-    if (_vec.size() < 2)
-        throw std::out_of_range("not enough elements to search");
-
-    int lowestDist = INT_MAX;
-    int currDist;
-
-    int *data = _vec.data();
-    size_t ssize = _vec.size();
-    for (size_t i = 0; i < ssize; i++)
-    {
-        for (size_t j = i + 1; j < ssize; j++)
-        {
-            currDist = data[i] - data[j];
-            if (currDist < 0)
-                currDist = -currDist;
-            // if (currDist < lowestDist)
-            //     lowestDist = currDist;
-            lowestDist = (currDist < lowestDist) ? currDist : lowestDist;
-        }
-    }
-    return lowestDist;
-}
-
 unsigned int Span::shortestSpan()
 {
     if (_vec.size() < 2)
@@ -116,4 +91,28 @@ unsigned int Span::myLongest()
             smallest = data[i];
     }
     return biggest - smallest;
+}
+
+unsigned int Span::myShortest()
+{
+    if (_vec.size() < 2)
+        throw std::out_of_range("not enough elements to search");
+
+    int lowestDist = INT_MAX;
+    int currDist;
+
+    int *data = _vec.data();
+    size_t ssize = _vec.size();
+    for (size_t i = 0; i < ssize; i++)
+    {
+        for (size_t j = i + 1; j < ssize; j++)
+        {
+            currDist = data[i] - data[j];
+            if (currDist < 0)
+                currDist = -currDist;
+            if (currDist < lowestDist)
+                lowestDist = currDist;
+        }
+    }
+    return lowestDist;
 }
