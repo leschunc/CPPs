@@ -2,7 +2,7 @@
 #include <iostream>
 #include <climits>
 
-Span::Span() : _size(0), _vec(std::vector<int>(_size))
+Span::Span() : _size(0), _vec(std::vector<int>())
 {
     _vec.reserve(0);
 }
@@ -15,9 +15,9 @@ Span::~Span()
 {
 }
 
-Span::Span(unsigned int n) : _size(n), _vec(std::vector<int>(_size))
+Span::Span(unsigned int n) : _size(n), _vec(std::vector<int>())
 {
-    _vec.reserve(_size);
+    _vec.reserve(n);
 }
 
 Span &Span::operator=(const Span &ref)
@@ -51,11 +51,11 @@ unsigned int Span::shortestSpan() const
 
     std::vector<int> temp = _vec;
     std::sort(temp.begin(), temp.end());
-    int lowest = INT_MAX;
+    long lowest = 0xffffffffL;
     for (size_t i = 0; i < temp.size() - 1; i++)
     {
-        if (temp.at(i + 1) - temp.at(i) < lowest)
-            lowest = temp.at(i + 1) - temp.at(i);
+        if (static_cast<long>(temp.at(i + 1)) - static_cast<long>(temp.at(i)) < lowest)
+            lowest = static_cast<long>(temp.at(i + 1)) - static_cast<long>(temp.at(i));
     }
     return lowest;
 }
@@ -68,5 +68,5 @@ unsigned int Span::longestSpan() const
     std::vector<int>::const_iterator biggest = std::max_element(_vec.begin(), _vec.end());
     std::vector<int>::const_iterator smallest = std::min_element(_vec.begin(), _vec.end());
 
-    return *biggest - *smallest;
+    return  static_cast<unsigned int>(static_cast<long>(*biggest) - static_cast<long>(*smallest));
 }

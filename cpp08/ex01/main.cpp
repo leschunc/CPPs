@@ -68,40 +68,25 @@ void benchTest()
 	{
 		a.addNumber(rand());
 	}
-	std::cout << "start" << std::endl;
-	gettimeofday(&now, 0);
-	long start = now.tv_sec * 1000000 + now.tv_usec;
-
-	std::cout << a.longestSpan() << "\n\n";
-
-	gettimeofday(&now, 0);
-	long timediff = now.tv_sec * 1000000 + now.tv_usec - start;
-	std::cout << timediff / 1000 << std::endl;
-
-	gettimeofday(&now, 0);
-	start = now.tv_sec * 1000000 + now.tv_usec;
-
-	std::cout << a.myLongest() << "\n\n";
-
-	gettimeofday(&now, 0);
-	timediff = now.tv_sec * 1000000 + now.tv_usec - start;
-	std::cout << timediff / 1000 << std::endl;
-	gettimeofday(&now, 0);
-	start = now.tv_sec * 1000000 + now.tv_usec;
-
-	std::cout << a.shortestSpan() << "\n\n";
-
-	gettimeofday(&now, 0);
-	timediff = now.tv_sec * 1000000 + now.tv_usec - start;
-	std::cout << timediff / 1000 << std::endl;
-	gettimeofday(&now, 0);
-	start = now.tv_sec * 1000000 + now.tv_usec;
-
-	std::cout << a.myShortest() << "\n\n";
-
-	gettimeofday(&now, 0);
-	timediff = now.tv_sec * 1000000 + now.tv_usec - start;
-	std::cout << timediff / 1000 << std::endl;
+	long start;
+	long timediff;
+	{
+		std::cout << "start" << std::endl;
+		gettimeofday(&now, 0);
+		start = now.tv_sec * 1000000 + now.tv_usec;
+		std::cout << a.longestSpan() << "\n\n";
+		gettimeofday(&now, 0);
+		timediff = now.tv_sec * 1000000 + now.tv_usec - start;
+		std::cout << timediff / 1000 << std::endl;
+	}
+	{
+		gettimeofday(&now, 0);
+		start = now.tv_sec * 1000000 + now.tv_usec;
+		std::cout << a.shortestSpan() << "\n\n";
+		gettimeofday(&now, 0);
+		timediff = now.tv_sec * 1000000 + now.tv_usec - start;
+		std::cout << timediff / 1000 << std::endl;
+	}
 }
 
 void subjectTest()
