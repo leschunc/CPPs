@@ -4,6 +4,7 @@
 
 Span::Span() : _size(0), _vec(std::vector<int>(_size))
 {
+    _vec.reserve(0);
 }
 
 Span::Span(const Span &ref) : _size(ref._size), _vec(ref._vec)
@@ -14,8 +15,9 @@ Span::~Span()
 {
 }
 
-Span::Span(unsigned int n) : _size(n), _vec(std::vector<int>())
+Span::Span(unsigned int n) : _size(n), _vec(std::vector<int>(_size))
 {
+    _vec.reserve(_size);
 }
 
 Span &Span::operator=(const Span &ref)
@@ -42,7 +44,7 @@ void Span::disp()
     std::cout << std::endl;
 }
 
-unsigned int Span::shortestSpan()
+unsigned int Span::shortestSpan() const
 {
     if (_vec.size() < 2)
         throw std::out_of_range("not enough elements to search");
@@ -58,48 +60,13 @@ unsigned int Span::shortestSpan()
     return lowest;
 }
 
-unsigned int Span::longestSpan()
+unsigned int Span::longestSpan() const
 {
     if (_vec.size() < 2)
         throw std::out_of_range("not enough elements to search");
 
-    std::vector<int>::iterator biggest = std::max_element(_vec.begin(), _vec.end());
-    std::vector<int>::iterator smallest = std::min_element(_vec.begin(), _vec.end());
+    std::vector<int>::const_iterator biggest = std::max_element(_vec.begin(), _vec.end());
+    std::vector<int>::const_iterator smallest = std::min_element(_vec.begin(), _vec.end());
 
     return *biggest - *smallest;
-}
-
-unsigned int Span::myLongest()
-{
-    if (_vec.size() < 2)
-        throw std::out_of_range("not enough elements to search");
-
-    int64_t biggest = INT_MIN;
-    int64_t smallest = INT_MAX;
-    int *data = _vec.data();
-    for (size_t i = 0; i < _vec.size(); i++)
-    {
-        if (data[i] > biggest)
-            biggest = data[i];
-        if (data[i] < smallest)
-            smallest = data[i];
-    }
-    return biggest - smallest;
-}
-
-unsigned int Span::myShortest()
-{
-    if (_vec.size() < 2)
-        throw std::out_of_range("not enough elements to search");
-
-    std::vector<int> temp = _vec;
-    std::sort(temp.begin(), temp.end());
-    int64_t lowest = INT_MAX;
-    int *data = temp.data();
-    for (size_t i = 0; i < temp.size() - 1; i++)
-    {
-        if (data[i + 1] - data[i] < lowest)
-            lowest = data[i + 1] - data[i];
-    }
-    return lowest;
 }

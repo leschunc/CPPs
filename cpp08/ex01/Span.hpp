@@ -11,20 +11,18 @@ class Span
 private:
     unsigned int _size;
     std::vector<int> _vec;
-    Span();
-    Span &operator=(const Span &ref);
 
 public:
+    Span();
     Span(const Span &ref);
-    Span(unsigned int n);
     ~Span();
+    Span &operator=(const Span &ref);
+    Span(unsigned int n);
 
     void addNumber(int num);
     void disp();
-    unsigned int shortestSpan();
-    unsigned int longestSpan();
-    unsigned int myShortest();
-    unsigned int myLongest();
+    unsigned int shortestSpan() const;
+    unsigned int longestSpan() const;
 
     template <typename T>
     void fill(T curr, T end)

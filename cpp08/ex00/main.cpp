@@ -24,8 +24,6 @@ int main()
 	v.insert(v.begin(), 'a');
 	easyfind(v, 'a');
 
-	// std::find()
-
 	return 0;
 
 }
