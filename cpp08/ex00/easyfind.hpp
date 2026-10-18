@@ -5,10 +5,14 @@
 #include <algorithm>
 
 template <typename T>
-void easyfind(T container, int value)
+typename T::iterator easyfind(T container, int value)
 {
-    if (std::find(container.begin(), container.end(), value) != container.end())
+    typename T::iterator it = std::find(container.begin(), container.end(), value);
+    if (it != container.end())
+    {
         std::cout << "it's here\n" << *(std::find(container.begin(), container.end(), value)) << "\n";
+        return it;
+    }
     else
         throw std::out_of_range("element not found: out of range");
 }

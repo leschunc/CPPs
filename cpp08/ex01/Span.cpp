@@ -1,6 +1,8 @@
 #include "Span.hpp"
 #include <iostream>
 #include <climits>
+#include <stdexcept>
+#include <vector>
 
 Span::Span() : _size(0), _vec(std::vector<int>())
 {

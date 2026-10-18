@@ -1,20 +1,19 @@
 #include "easyfind.hpp"
 #include <vector>
-#include <algorithm>
 #include <iostream>
 
 int main()
 {
 
-	std::vector<int> v;
+	std::vector<char> v;
 
 	for (size_t i = 0; i < 11; i++)
 		v.push_back("hello world"[i]);
-	
+
 	try
 	{
-		easyfind(v, 'e');
-		easyfind(v, 'a');
+		std::cout << *easyfind(v, 'e') << "\n";
+		std::cout << *easyfind(v, 'a') << "\n";
 	}
 	catch (const std::out_of_range &e)
 	{
@@ -25,5 +24,4 @@ int main()
 	easyfind(v, 'a');
 
 	return 0;
-
 }
