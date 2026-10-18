@@ -4,6 +4,7 @@
 #include <vector>
 #include <stdexcept>
 #include <cstdlib>
+#include <algorithm>
 
 class Span
 {
@@ -22,6 +23,9 @@ public:
     void disp();
     unsigned int shortestSpan();
     unsigned int longestSpan();
+    unsigned int myShortest();
+    unsigned int myLongest();
+    
     // void fill();
 };
 

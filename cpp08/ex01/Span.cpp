@@ -48,21 +48,45 @@ void Span::disp()
     std::cout << std::endl;
 }
 
+unsigned int Span::myShortest()
+{
+    if (_vec.size() < 2)
+        throw std::out_of_range("not enough elements to search");
+
+    int lowestDist = INT_MAX;
+    int currDist;
+
+    int *data = _vec.data();
+    size_t ssize = _vec.size();
+    for (size_t i = 0; i < ssize; i++)
+    {
+        for (size_t j = i + 1; j < ssize; j++)
+        {
+            currDist = data[i] - data[j];
+            if (currDist < 0)
+                currDist = -currDist;
+            // if (currDist < lowestDist)
+            //     lowestDist = currDist;
+            lowestDist = (currDist < lowestDist) ? currDist : lowestDist;
+        }
+    }
+    return lowestDist;
+}
+
 unsigned int Span::shortestSpan()
 {
     if (_vec.size() < 2)
         throw std::out_of_range("not enough elements to search");
 
-    long lowestDist = LONG_MAX;
-    long currentDist;
-
-    for (size_t i = 0; i < _vec.size() - 1; i++)
+    std::vector<int> temp = _vec;
+    std::sort(temp.begin(), temp.end());
+    long lowest = LONG_MAX;
+    for (size_t i = 0; i < temp.size() - 1; i++)
     {
-        currentDist = _vec.at(i) - _vec.at(i + 1);
-        if (currentDist < 0) currentDist = -currentDist;
-        if (currentDist < lowestDist) lowestDist = currentDist;
+        if (temp.at(i + 1) - temp.at(i) < lowest)
+            lowest = temp.at(i + 1) - temp.at(i);
     }
-    return lowestDist;
+    return lowest;
 }
 
 unsigned int Span::longestSpan()
@@ -70,14 +94,26 @@ unsigned int Span::longestSpan()
     if (_vec.size() < 2)
         throw std::out_of_range("not enough elements to search");
 
-    int biggest = INT_MIN;
-    int smallest = INT_MAX;
+    std::vector<int>::iterator biggest = std::max_element(_vec.begin(), _vec.end());
+    std::vector<int>::iterator smallest = std::min_element(_vec.begin(), _vec.end());
+
+    return *biggest - *smallest;
+}
+
+unsigned int Span::myLongest()
+{
+    if (_vec.size() < 2)
+        throw std::out_of_range("not enough elements to search");
+
+    int64_t biggest = LONG_MIN;
+    int64_t smallest = LONG_MAX;
+    int *data = _vec.data();
     for (size_t i = 0; i < _vec.size(); i++)
     {
-        if (_vec.at(i) > biggest)
-            biggest = _vec.at(i);
-        if (_vec.at(i) < smallest)
-            smallest = _vec.at(i);
+        if (data[i] > biggest)
+            biggest = data[i];
+        if (data[i] < smallest)
+            smallest = data[i];
     }
     return biggest - smallest;
 }
