@@ -55,7 +55,7 @@ unsigned int Span::shortestSpan()
 
     std::vector<int> temp = _vec;
     std::sort(temp.begin(), temp.end());
-    long lowest = LONG_MAX;
+    int lowest = INT_MAX;
     for (size_t i = 0; i < temp.size() - 1; i++)
     {
         if (temp.at(i + 1) - temp.at(i) < lowest)
@@ -80,8 +80,8 @@ unsigned int Span::myLongest()
     if (_vec.size() < 2)
         throw std::out_of_range("not enough elements to search");
 
-    int64_t biggest = LONG_MIN;
-    int64_t smallest = LONG_MAX;
+    int biggest = INT_MIN;
+    int smallest = INT_MAX;
     int *data = _vec.data();
     for (size_t i = 0; i < _vec.size(); i++)
     {
@@ -98,21 +98,14 @@ unsigned int Span::myShortest()
     if (_vec.size() < 2)
         throw std::out_of_range("not enough elements to search");
 
-    int lowestDist = INT_MAX;
-    int currDist;
-
-    int *data = _vec.data();
-    size_t ssize = _vec.size();
-    for (size_t i = 0; i < ssize; i++)
+    std::vector<int> temp = _vec;
+    std::sort(temp.begin(), temp.end());
+    int lowest = INT_MAX;
+    int *data = temp.data();
+    for (size_t i = 0; i < temp.size() - 1; i++)
     {
-        for (size_t j = i + 1; j < ssize; j++)
-        {
-            currDist = data[i] - data[j];
-            if (currDist < 0)
-                currDist = -currDist;
-            if (currDist < lowestDist)
-                lowestDist = currDist;
-        }
+        if (data[i + 1] - data[i] < lowest)
+            lowest = data[i + 1]  - data[i];
     }
-    return lowestDist;
+    return lowest;
 }
