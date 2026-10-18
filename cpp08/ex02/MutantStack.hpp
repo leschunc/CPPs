@@ -5,7 +5,6 @@
 template <typename T>
 class MutantStack : public std::stack<T>
 {
-private:
 public:
     typedef typename std::stack<T>::container_type::iterator iterator;
     typedef typename std::stack<T>::container_type::const_iterator const_iterator;
@@ -16,17 +15,18 @@ public:
         this->c = ref.c;
     }
     ~MutantStack() {}
-    MutantStack operator=(const MutantStack &ref)
+    MutantStack &operator=(const MutantStack &ref)
     {
-        if (this == *ref)
-            return;
+        if (this == &ref)
+            return *this;
         this->c = ref.c;
+        return *this;
     }
 
     iterator begin() { return this->c.begin(); }
     iterator end() { return this->c.end(); }
-    const_iterator cbegin() { return this->c.begin(); }
-    const_iterator cend() { return this->c.end(); }
+    const_iterator cbegin() const { return this->c.begin(); }
+    const_iterator cend() const { return this->c.end(); }
 };
 
 #endif

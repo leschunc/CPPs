@@ -1,5 +1,5 @@
-#ifndef SPAN_H
-#define SPAN_H
+#ifndef SPAN_HPP
+#define SPAN_HPP
 
 #include <vector>
 #include <stdexcept>
@@ -9,8 +9,8 @@
 class Span
 {
 private:
-    std::vector<int> _vec;
     unsigned int _size;
+    std::vector<int> _vec;
     Span();
     Span &operator=(const Span &ref);
 

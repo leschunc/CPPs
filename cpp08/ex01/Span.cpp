@@ -2,34 +2,28 @@
 #include <iostream>
 #include <climits>
 
-Span::Span() : _size(0)
+Span::Span() : _size(0), _vec(std::vector<int>(_size))
 {
-    _vec = std::vector<int>(_size);
 }
 
-Span::Span(const Span &ref)
+Span::Span(const Span &ref) : _size(ref._size), _vec(ref._vec)
 {
-    if (this == &ref)
-        return;
-    _vec = ref._vec;
-    _size = ref._size;
 }
 
 Span::~Span()
 {
 }
 
-Span::Span(unsigned int n) : _size(n)
+Span::Span(unsigned int n) : _size(n), _vec(std::vector<int>())
 {
-    _vec = std::vector<int>();
 }
 
 Span &Span::operator=(const Span &ref)
 {
     if (this == &ref)
         return *this;
-    _vec = ref._vec;
     _size = ref._size;
+    _vec = ref._vec;
     return *this;
 }
 
@@ -80,8 +74,8 @@ unsigned int Span::myLongest()
     if (_vec.size() < 2)
         throw std::out_of_range("not enough elements to search");
 
-    int biggest = INT_MIN;
-    int smallest = INT_MAX;
+    int64_t biggest = INT_MIN;
+    int64_t smallest = INT_MAX;
     int *data = _vec.data();
     for (size_t i = 0; i < _vec.size(); i++)
     {
@@ -100,7 +94,7 @@ unsigned int Span::myShortest()
 
     std::vector<int> temp = _vec;
     std::sort(temp.begin(), temp.end());
-    int lowest = INT_MAX;
+    int64_t lowest = INT_MAX;
     int *data = temp.data();
     for (size_t i = 0; i < temp.size() - 1; i++)
     {
