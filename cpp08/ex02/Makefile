@@ -2,7 +2,7 @@ NAME        := stl_test
 CXX         := c++
 CXXFLAGS    := -Wall -Wextra -Werror -std=c++98 -MMD -MP
 
-SRCS        := $(addsuffix .cpp, main MutantStack)
+SRCS        := main.cpp MutantStack.tpp
 OBJ_DIR     := objs
 OBJS        := $(SRCS:%.cpp=$(OBJ_DIR)/%.o)
 DEPS        := $(OBJS:.o=.d)

@@ -3,38 +3,30 @@
 #include <stack>
 
 template <typename T>
-class MutantStack : std::stack<T>
+class MutantStack : public std::stack<T>
 {
 private:
 public:
-    MutantStack(){}
-    MutantStack(const MutantStack&ref){}
-    ~MutantStack(){}
-    MutantStack operator=(const MutantStack&ref){}
+    typedef typename std::stack<T>::container_type::iterator iterator;
+    typedef typename std::stack<T>::container_type::const_iterator const_iterator;
 
-    class iterator
+    MutantStack() {}
+    MutantStack(const MutantStack<T> &ref)
     {
-    private:
-    public:
-        iterator(){}
-        iterator(const MutantStack<T>::iterator&ref){}
-        ~iterator(){}
-        iterator operator=(const MutantStack<T>::iterator&ref){
-            if (this != &ref)
-                return ;
-            
-        }
+        this->c = ref.c;
+    }
+    ~MutantStack() {}
+    MutantStack operator=(const MutantStack &ref)
+    {
+        if (this == *ref)
+            return;
+        this->c = ref.c;
+    }
 
-        iterator operator++(int){
-            iterator temp = *this;
-            *this =
-        }
-        // iterator& operator++(){}
-
-        // iterator operator--(int){}
-        // iterator& operator--(){}
-
-    };
+    iterator begin() { return this->c.begin(); }
+    iterator end() { return this->c.end(); }
+    const_iterator cbegin() { return this->c.begin(); }
+    const_iterator cend() { return this->c.end(); }
 };
 
 #endif
