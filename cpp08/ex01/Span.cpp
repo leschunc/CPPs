@@ -51,11 +51,11 @@ unsigned int Span::shortestSpan() const
 
     std::vector<int> temp = _vec;
     std::sort(temp.begin(), temp.end());
-    long lowest = 0xffffffffL;
+    int64_t lowest = 0xffffffff;
     for (size_t i = 0; i < temp.size() - 1; i++)
     {
-        if (static_cast<long>(temp.at(i + 1)) - static_cast<long>(temp.at(i)) < lowest)
-            lowest = static_cast<long>(temp.at(i + 1)) - static_cast<long>(temp.at(i));
+        if (static_cast<int64_t>(temp.at(i + 1)) - static_cast<int64_t>(temp.at(i)) < lowest)
+            lowest = static_cast<int64_t>(temp.at(i + 1)) - static_cast<int64_t>(temp.at(i));
     }
     return lowest;
 }
@@ -68,5 +68,5 @@ unsigned int Span::longestSpan() const
     std::vector<int>::const_iterator biggest = std::max_element(_vec.begin(), _vec.end());
     std::vector<int>::const_iterator smallest = std::min_element(_vec.begin(), _vec.end());
 
-    return  static_cast<unsigned int>(static_cast<long>(*biggest) - static_cast<long>(*smallest));
+    return  static_cast<unsigned int>(static_cast<int64_t>(*biggest) - static_cast<int64_t>(*smallest));
 }

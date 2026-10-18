@@ -2,7 +2,7 @@
 #include <iostream>
 #include <list>
 
-#define TINY 42
+#define TINY 1000000
 #include <sys/time.h>
 
 void constructorTest()
@@ -119,6 +119,7 @@ void fillerTest()
 		}
 		catch (const std::exception &e)
 		{
+			std::cerr << e.what() << std::endl;
 			break;
 		}
 	}
@@ -126,6 +127,7 @@ void fillerTest()
 
 void batchTest()
 {
+	srand(time(0));
 
 	constructorTest();
 	std::cout << "_________________\n\nEND		|\n_________________\n\n";
@@ -145,9 +147,9 @@ void batchTest()
 
 int main()
 {
-	srand(time(0));
 
 	batchTest();
 
 	return 0;
+	
 }

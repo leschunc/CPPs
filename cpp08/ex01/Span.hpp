@@ -27,6 +27,10 @@ public:
     template <typename T>
     void fill(T curr, T end)
     {
+        std::ptrdiff_t distance = std::distance(curr, end);
+        
+        if (distance + _vec.size() > _size)
+            throw std::out_of_range("Too big a span: no capacity");
         for (; curr != end; curr++)
             addNumber(*curr);
     }
