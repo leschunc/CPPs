@@ -1,7 +1,8 @@
 #include "Span.hpp"
 #include <iostream>
+#include <list>
 
-#define TINY 10000
+#define TINY 42
 #include <sys/time.h>
 
 void constructorTest()
@@ -61,7 +62,6 @@ void benchTest()
 {
 	struct timeval now;
 	gettimeofday(&now, 0);
-	srand(now.tv_usec);
 
 	Span a(TINY);
 	for (size_t i = 0; i < TINY; i++)
@@ -104,25 +104,65 @@ void benchTest()
 	std::cout << timediff / 1000 << std::endl;
 }
 
-void batchTest()
+void subjectTest()
 {
-	constructorTest();
-	constTest();
-	fillDisplayRange();
-	spanTest();
-	benchTest();
+	Span sp = Span(5);
+	sp.addNumber(6);
+	sp.addNumber(3);
+	sp.addNumber(17);
+	sp.addNumber(9);
+	sp.addNumber(11);
+	std::cout << sp.shortestSpan() << std::endl;
+	std::cout << sp.longestSpan() << std::endl;
 }
 
-void workBench()
+void fillerTest()
 {
+	size_t cap = 42;
+
+	Span source(cap);
+	std::list<int> filler;
+	for (size_t i = 0; i < cap; i++)
+		filler.push_back(rand());
+
+	while (1)
+	{
+		try
+		{
+			source.fill(filler.begin(), filler.end());
+			source.disp();
+		}
+		catch (const std::exception &e)
+		{
+			break;
+		}
+	}
+}
+
+void batchTest()
+{
+
+	constructorTest();
+	std::cout << "_________________\n\nEND		|\n_________________\n\n";
+	constTest();
+	std::cout << "_________________\n\nEND		|\n_________________\n\n";
+	fillDisplayRange();
+	std::cout << "_________________\n\nEND		|\n_________________\n\n";
+	spanTest();
+	std::cout << "_________________\n\nEND		|\n_________________\n\n";
+	benchTest();
+	std::cout << "_________________\n\nEND		|\n_________________\n\n";
+	subjectTest();
+	std::cout << "_________________\n\nEND		|\n_________________\n\n";
+	fillerTest();
+	std::cout << "_________________\n\nEND		|\n_________________\n\n";
 }
 
 int main()
 {
+	srand(time(0));
 
 	batchTest();
-
-	workBench();
 
 	return 0;
 }

@@ -105,7 +105,7 @@ unsigned int Span::myShortest()
     for (size_t i = 0; i < temp.size() - 1; i++)
     {
         if (data[i + 1] - data[i] < lowest)
-            lowest = data[i + 1]  - data[i];
+            lowest = data[i + 1] - data[i];
     }
     return lowest;
 }

@@ -25,9 +25,13 @@ public:
     unsigned int longestSpan();
     unsigned int myShortest();
     unsigned int myLongest();
-    // using ScavTrap::attack();
 
-    // void fill();
+    template <typename T>
+    void fill(T curr, T end)
+    {
+        for (; curr != end; curr++)
+            addNumber(*curr);
+    }
 };
 
 #endif
