@@ -103,6 +103,23 @@ void subjectTest()
 	}
 }
 
+void constIterators()
+{
+	MutantStack<int> a;
+
+	a.push(3);
+	a.push(7);
+
+	std::cout << *a.begin() << "\n";
+	
+	const MutantStack<int> b(a);
+	*a.begin() = 42;
+
+	// std::cout << ++(*b.begin()) << "\n";
+
+	// std::cout << ++(*a.cbegin()) << "\n";
+}
+
 void batchTest()
 {
 	canonTest();
@@ -115,6 +132,9 @@ void batchTest()
 	std::cout << "---------------------\n";
 
 	subjectTest();
+	std::cout << "---------------------\n";
+
+	constIterators();
 	std::cout << "---------------------\n";
 }
 
