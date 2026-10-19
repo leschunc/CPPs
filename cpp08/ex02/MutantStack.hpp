@@ -10,16 +10,12 @@ public:
     typedef typename std::stack<T>::container_type::const_iterator const_iterator;
 
     MutantStack() {}
-    MutantStack(const MutantStack<T> &ref)
-    {
-        this->c = ref.c;
-    }
+    MutantStack(const MutantStack<T> &ref) : std::stack<T>(ref) {}
     ~MutantStack() {}
     MutantStack &operator=(const MutantStack &ref)
     {
-        if (this == &ref)
-            return *this;
-        this->c = ref.c;
+        if (this != &ref)
+            this->c = ref.c;
         return *this;
     }
 
