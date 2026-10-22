@@ -24,9 +24,11 @@ public:
 
     void openFileCheck(int ac, char *av[]);
     void loadFileCheck();
-    void checkLines(const std::string &str, char c);
+    void loadMap(const std::string &str, char c);
     std::string trimSpaces(const std::string &str);
     void checkValue(const std::string &value);
+    
+    void dbShowMap();
 };
 
 #endif

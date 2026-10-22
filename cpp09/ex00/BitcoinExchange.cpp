@@ -1,5 +1,9 @@
 #include "BitcoinExchange.hpp"
 // #include "Split.hpp"
+// #include
+
+typedef std::pair<std::string, std::string> strStr;
+typedef std::map<std::string, std::string>::iterator strStrMapIt;
 
 BitcoinExchange::BitcoinExchange()
 {
@@ -74,39 +78,35 @@ void BitcoinExchange::checkValue(const std::string &value)
 }
 
 // TODO: try and catch outside
-void BitcoinExchange::checkLines(const std::string &line, char c)
+void BitcoinExchange::loadMap(const std::string &line, char c)
 {
 	if (line.empty())
 		throw std::runtime_error("Invalid empty line in .csv file\n");
 
 	size_t start = 0;
 	size_t index = 0;
+	
 	std::string date;
 	std::string rate;
-	// valueByDate.insert()
+
+	bool alt = false;
 	while ((index = line.find(c, index)))
 	{
-		date = trimSpaces(line.substr(start, index));
-		index++;
-		start = index;
-		if (index == 0)
-			break;
-
-		index = line.find(c, index);
-		rate = trimSpaces(line.substr(start, index));
-		index++;
-		start = index;
-
-		// valueByDate[date] = rate;
-		// if (valueByDate.insert({date, rate}).second == false)
-		// 	throw std::runtime_error("Invalid insertion on map\n");
-
-		// checkValue(value);
-		if (index == line.npos)
+		if ((alt = !alt))
 		{
-			// std::cout << "\n";
-			return;
+			date = trimSpaces(line.substr(start, index));
 		}
+		else
+		{
+			rate = trimSpaces(line.substr(start, index));
+			if (valueByDate.insert(strStr(date, rate)).second == false)
+				throw std::runtime_error("Invalid insertion on map\n");
+		}
+
+		if (index == line.npos)
+			return;
+		index++;
+		start = index;
 	}
 }
 
@@ -124,6 +124,14 @@ void BitcoinExchange::loadFileCheck()
 			skipFirst = false;
 			continue;
 		}
-		checkLines(line, ',');
+		loadMap(line, ',');
+	}
+}
+
+void BitcoinExchange::dbShowMap()
+{
+	for (strStrMapIt it = valueByDate.begin(); it != valueByDate.end(); it++)
+	{
+		std::cout << (*it).first << " " << (*it).second << "\n";
 	}
 }
