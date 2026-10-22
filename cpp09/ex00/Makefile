@@ -24,17 +24,18 @@ clean:
 
 fclean: clean
 	rm -f $(NAME)
-	rm -f run.sh
+# 	rm -f run.sh
 
 run.sh:
-	echo 'valgrind ./btc "$$@"' > run.sh
+	echo './btc "$$@"' > run.sh
 	chmod +x run.sh
 
 g: re run.sh
-	@read args; \
-	if [ -z "$$args" ]; then \
-		args="data.csv"; \
-	fi; \
+# 	@read args; \
+# 	if [ -z "$$args" ]; then \
+# 		args="data.csv"; \
+# 	fi; \
+	
 	./run.sh "$$args"
 	make fclean
 

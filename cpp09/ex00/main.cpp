@@ -1,15 +1,13 @@
 #include "BitcoinExchange.hpp"
 
-using std::cerr;
-using std::cout;
-
 int main(int ac, char *av[])
 {
 	BitcoinExchange btx;
 	try
 	{
 		btx.openFileCheck(ac, av);
-		cout << "File opened succesfully\n";
+		// cout << "File opened succesfully\n\n";
+		btx.loadFileCheck();
 	}
 	catch (const std::exception &e)
 	{
