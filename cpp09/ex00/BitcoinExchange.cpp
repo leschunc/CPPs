@@ -2,8 +2,8 @@
 // #include "Split.hpp"
 // #include
 
-typedef std::pair<std::string, std::string> strStr;
-typedef std::map<std::string, std::string>::iterator strStrMapIt;
+typedef std::pair<std::string, std::string> StrPair;
+typedef std::map<std::string, std::string>::iterator MapIt;
 
 BitcoinExchange::BitcoinExchange()
 {
@@ -55,27 +55,46 @@ std::string BitcoinExchange::trimSpaces(const std::string &str)
 	return res;
 }
 
-void BitcoinExchange::checkValue(const std::string &value)
+void BitcoinExchange::checkDate(const std::string &date)
 {
-	for (size_t i = 0; i != value.size(); i++)
+	std::string err = "Invalid ISO format \"" + date + "\"\n";
+
+	if (date.size() != 10)
+		throw std::runtime_error(err.c_str());
+	for (size_t i = 0; i != date.size(); i++)
 	{
 		if (i == 4 || i == 7)
 		{
-			std::cout << "dash: " << value.at(i) << "\n";
-			if (isdigit(value.at(i)) == false)
-			{
-				// std::cout << "not a digit bro" << std::endl;
-				throw std::runtime_error("Invalid ISO format: try 'YYYY-MM-DD'\n");
-			}
+			if (date.at(i) != '-')
+				throw std::runtime_error(err.c_str());
 		}
-		else
-		{
-			std::cout << value.at(i) << " is digit" << "\n";
-			if (value.at(i) != '-')
-				throw std::runtime_error("Invalid ISO format: try 'YYYY-MM-DD'\n");
-		}
+		else if (isdigit(date.at(i)) == false)
+			throw std::runtime_error(err.c_str());
 	}
 }
+
+void BitcoinExchange::checkRate(const std::string &rate)
+{
+	(void)rate;
+}
+
+// void BitcoinExchange::checkValues()
+// {
+// 	StrPair pair;
+
+// 	for (MapIt it = valueByDate.begin(); it != valueByDate.end(); it++)
+// 	{
+// 		try
+// 		{
+// 			checkDate((*it).first);
+// 			checkRate((*it).second);
+// 		}
+// 		catch (const std::exception &e)
+// 		{
+// 			valueByDate
+// 		}
+// 	}
+// }
 
 // TODO: try and catch outside
 void BitcoinExchange::loadMap(const std::string &line, char c)
@@ -83,30 +102,20 @@ void BitcoinExchange::loadMap(const std::string &line, char c)
 	if (line.empty())
 		throw std::runtime_error("Invalid empty line in .csv file\n");
 
-	size_t start = 0;
-	size_t index = 0;
-	
 	std::string date;
 	std::string rate;
 
-	bool alt = false;
-	while ((index = line.find(c, index)))
+	size_t index = line.find(c);
+	date = trimSpaces(line.substr(0, index));
+	size_t start = index + 1;
+	index = line.find(c, index);
+	rate = trimSpaces(line.substr(start, index));
+	checkDate(date);
+	checkRate(rate);
+	if (valueByDate.insert(StrPair(date, rate)).second == false)
 	{
-		if ((alt = !alt))
-		{
-			date = trimSpaces(line.substr(start, index));
-		}
-		else
-		{
-			rate = trimSpaces(line.substr(start, index));
-			if (valueByDate.insert(strStr(date, rate)).second == false)
-				throw std::runtime_error("Invalid insertion on map\n");
-		}
-
-		if (index == line.npos)
-			return;
-		index++;
-		start = index;
+		std::string err = "Possible duplicated line: " + line + '\n';
+		throw std::runtime_error(err.c_str());
 	}
 }
 
@@ -124,13 +133,20 @@ void BitcoinExchange::loadFileCheck()
 			skipFirst = false;
 			continue;
 		}
-		loadMap(line, ',');
+		try
+		{
+			loadMap(line, ',');
+		}
+		catch (const std::exception &e)
+		{
+			std::cerr << e.what();
+		}
 	}
 }
 
 void BitcoinExchange::dbShowMap()
 {
-	for (strStrMapIt it = valueByDate.begin(); it != valueByDate.end(); it++)
+	for (MapIt it = valueByDate.begin(); it != valueByDate.end(); it++)
 	{
 		std::cout << (*it).first << " " << (*it).second << "\n";
 	}
