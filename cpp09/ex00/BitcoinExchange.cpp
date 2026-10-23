@@ -1,8 +1,6 @@
 #include "BitcoinExchange.hpp"
 #include <cstdlib>
-
-typedef std::pair<std::string, std::string> StrPair;
-typedef std::map<std::string, std::string>::iterator MapIt;
+#include <climits>
 
 BitcoinExchange::BitcoinExchange()
 {
@@ -25,32 +23,29 @@ BitcoinExchange &BitcoinExchange::operator=(const BitcoinExchange &ref)
 void BitcoinExchange::openFileCheck(int ac, char *av[])
 {
 	if (ac < 2)
-		throw std::logic_error("Invalid number of arguments\n");
+		throw parse_error("Invalid number of arguments");
 
 	std::string fileName(av[1]);
 	std::size_t index = fileName.find('.');
 	if (index == fileName.npos)
-		throw std::runtime_error("Invalid file extension\n");
+		throw parse_error("Invalid file extension");
 
 	std::string ext;
 	ext = fileName.substr(index);
 	if (ext.compare(".csv") != 0)
-		throw std::runtime_error("Invalid file extension\n");
+		throw parse_error("Invalid file extension");
 
 	file.open(av[1], std::ios::in);
 	if (file.good() == false)
-		throw std::runtime_error("Invalid file state\n");
+		throw parse_error("Invalid file state");
 }
 
 std::string BitcoinExchange::trimSpaces(const std::string &str)
 {
 	size_t start = str.find_first_not_of("\x9\x20");
-	size_t end = str.find_first_of("\x9\x20", start);
+	size_t end = str.find_last_not_of("\x9\x20");
 
-	std::string res = str.substr(start, end - start);
-	// std::cerr << "Invalid ISO format: try 'YYYY-MM-DD'\n";
-
-	// std::cout << "[" << res << "]\n";
+	std::string res = str.substr(start, end + 1);
 	return res;
 }
 
@@ -61,8 +56,8 @@ bool BitcoinExchange::isLeap(int year)
 
 void BitcoinExchange::rtFormatErr(const std::string &date)
 {
-	std::string err = "Invalid ISO format \"" + date + "\"\n";
-	throw std::runtime_error(err);
+	std::string err = "Invalid ISO format \"" + date + "\"";
+	throw parse_error(err);
 }
 
 void BitcoinExchange::dateFormatCheck(const std::string &date)
@@ -83,8 +78,8 @@ void BitcoinExchange::dateFormatCheck(const std::string &date)
 
 void BitcoinExchange::rtDateErr(const std::string &date)
 {
-	std::string err = "Invalid date \"" + date + "\"\n";
-	throw std::runtime_error(err);
+	std::string err = "Invalid date \"" + date + "\"";
+	throw parse_error(err);
 }
 
 void BitcoinExchange::checkDate(const std::string &date)
@@ -118,9 +113,42 @@ void BitcoinExchange::checkDate(const std::string &date)
 	}
 }
 
+// int commaCheck(const std::string &rate)
+// {
+// 	size_t mark = rate.find(',');
+// 	if (mark == rate.npos)
+// 		return 0;
+// 	mark = rate.find(',' );
+// }
+
 void BitcoinExchange::checkRate(const std::string &rate)
 {
-	(void)rate;
+	char *endPtr;
+	double num = std::strtod(rate.c_str(), &endPtr);
+
+	if (num > static_cast<double>(INT_MAX))
+		throw parse_error("Value too big");
+
+	if (*endPtr != 0)
+		throw parse_error("Invalid rate");
+
+	if (rate.find_first_not_of("0123456789.") != rate.npos)
+		throw parse_error("Invalid char in rate");
+}
+
+void BitcoinExchange::checkValue(const std::string &value)
+{
+	char *endPtr;
+	double num = std::strtod(value.c_str(), &endPtr);
+
+	if (num > static_cast<double>(1000))
+		throw parse_error("Value too big");
+
+	if (*endPtr != 0)
+		throw parse_error("Invalid value");
+
+	if (value.find_first_not_of("0123456789.") != value.npos)
+		throw parse_error("Invalid char in value");
 }
 
 // void BitcoinExchange::checkValues()
@@ -142,35 +170,32 @@ void BitcoinExchange::checkRate(const std::string &rate)
 // }
 
 // TODO: try and catch outside
-void BitcoinExchange::loadMap(const std::string &line, char c)
+void BitcoinExchange::loadMap(const std::string &line)
 {
 	if (line.empty())
-		throw std::runtime_error("Invalid empty line in .csv file\n");
+		throw parse_error("Empty entry");
 
-	std::string date;
-	std::string rate;
+	StrPair p;
 
-	size_t index = line.find(c);
-	if (index == line.npos)
+	size_t pos = line.find(',');
+	if (pos == line.npos)
+		throw parse_error("Missing ',' separator: " + line);
+
+	p.first = line.substr(0, pos);
+	p.second = line.substr(pos + 1);
+
+	p.first = trimSpaces(p.first);
+	p.second = trimSpaces(p.second);
+
+	if (p.first.empty() || p.second.empty())
+		throw parse_error("Empty entry: " + line);
+
+	checkDate(p.first);
+	checkRate(p.second);
+
+	if (valueByDate.insert(p).second == false)
 	{
-		std::string err = "Invalid line: " + line + "\n";
-		throw std::runtime_error(err);
-	}
-	date = trimSpaces(line.substr(0, index));
-	size_t start = index + 1;
-	index = line.find(c, index);
-	if (index == line.npos)
-	{
-		std::string err = "Invalid line: " + line + "\n";
-		throw std::runtime_error(err);
-	}	
-	rate = trimSpaces(line.substr(start, index));
-	checkDate(date);
-	checkRate(rate);
-	if (valueByDate.insert(StrPair(date, rate)).second == false)
-	{
-		std::string err = "Duplicated date: " + date + ": first entry used\n";
-		throw std::runtime_error(err);
+		throw parse_error("Duplicated date: " + p.first + ": first entry used");
 	}
 }
 
@@ -179,30 +204,119 @@ void BitcoinExchange::loadFileCheck()
 	std::string line;
 
 	// TODO: should I keep this
-	bool skipFirst = true;
+	bool header = true;
 
 	while (getline(file, line))
 	{
-		if (skipFirst)
+		if (header)
 		{
-			skipFirst = false;
+			header = false;
+			if (line.compare("date,exchange_rate") != 0)
+				cerr << "Invalid header line\n";
 			continue;
 		}
 		try
 		{
-			loadMap(line, ',');
+			loadMap(line);
+		}
+		catch (const parse_error &e)
+		{
+			cerr << e.what() << " on line: [" << line << "]\n";
 		}
 		catch (const std::exception &e)
 		{
-			std::cerr << "Invalid line: [" + line + "]\n";
+			cerr << "Invalid line at: [" << line << "]\n";
 		}
 	}
+	if (valueByDate.empty())
+		throw parse_error("Not enough elements in .csv");
 }
 
 void BitcoinExchange::dbShowMap()
 {
 	for (MapIt it = valueByDate.begin(); it != valueByDate.end(); it++)
 	{
-		std::cout << (*it).first << " " << (*it).second << "\n";
+		cout << (*it).first << " " << (*it).second << "\n";
 	}
+}
+
+void BitcoinExchange::readInput()
+{
+	std::string line;
+
+	bool header = true;
+
+	while (std::getline(std::cin, line))
+	{
+		if (header)
+		{
+			if (line.compare("date | value") != 0)
+				cerr << "Invalid header format\n";
+			header = false;
+			continue;
+		}
+		try
+		{
+			validateInput(line);
+		}
+		catch (const parse_error &e)
+		{
+			cerr << e.what() << "\n";
+		}
+		catch (const std::exception &e)
+		{
+			cerr << "Invalid input" << '\n';
+		}
+	}
+
+	// 	file.open(av[1], std::ios::in);
+	// if (file.good() == false)
+	// 	throw parse_error("Invalid file state");
+}
+
+void BitcoinExchange::validateInput(const std::string &line)
+{
+	std::cout << line << "\n";
+	// BitcoinExchange::
+
+	size_t pos = line.find('|');
+	if (pos == line.npos)
+		throw parse_error("Expected separator '|' not found");
+
+	StrPair p;
+	p.first = line.substr(0, pos);
+	p.second = line.substr(pos + 1);
+
+	p.first = trimSpaces(p.first);
+	p.second = trimSpaces(p.second);
+	// checkDate()
+
+	checkDate(p.first);
+	checkValue(p.second);
+
+	findEntry(p);
+}
+
+void BitcoinExchange::findEntry(const StrPair &p)
+{
+	MapIt previous;
+
+	// std::cout << p.first << "<<<<<<\n";
+	previous = valueByDate.begin();
+	for (MapIt it = valueByDate.begin(); it != valueByDate.end(); it++)
+	{
+		if ((*(it)).first > p.first)
+			break;
+		previous = it;
+	}
+	printInput(previous, p);
+}
+
+void BitcoinExchange::printInput(const MapIt &it, const StrPair &p)
+{
+	char *endptr;
+	double rate = std::strtod((*it).second.c_str(), &endptr);
+	double value = std::strtod(p.second.c_str(), &endptr);
+
+	std::cout << "rate: " << rate << " | value: " << value << " | converted: " << rate * value << "\n";
 }

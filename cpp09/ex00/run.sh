@@ -1,1 +1,1 @@
-./btc fake.csv
+cat input.txt | ./btc fake.csv

@@ -3,12 +3,13 @@
 
 #include <iostream>
 #include <fstream>
-#include <exception>
 #include <map>
-#include <set>
 
 using std::cerr;
 using std::cout;
+
+typedef std::pair<std::string, std::string> StrPair;
+typedef std::map<std::string, std::string>::iterator MapIt;
 
 class BitcoinExchange
 {
@@ -20,22 +21,45 @@ private:
 
 public:
     // TODO: OCF is not defined
+    // OCF
     BitcoinExchange();
     ~BitcoinExchange();
 
+    // files
     void openFileCheck(int ac, char *av[]);
     void loadFileCheck();
-    void loadMap(const std::string &str, char c);
+
+    // loading
+    void loadMap(const std::string &str);
+
+    // parsing
     std::string trimSpaces(const std::string &str);
-    // void checkValues();
     void dateFormatCheck(const std::string &date);
+    bool isLeap(int year);
+    void checkDate(const std::string &date);
+    void checkRate(const std::string &rate);
+    void checkValue(const std::string &value);
+
+    // input loop
+    void readInput();
+    void validateInput(const std::string &line);
+    void findEntry(const StrPair &p);
+    void printInput(const MapIt& it, const StrPair &p);
+
+    // throw wrapper
     void rtDateErr(const std::string &date);
     void rtFormatErr(const std::string &date);
-    bool isLeap(int year);
-    void checkDate(const std::string &value);
-    void checkRate(const std::string &value);
 
+    // debug
     void dbShowMap();
+
+    class parse_error : public std::runtime_error
+    {
+    public:
+        parse_error(const std::string &what_arg) : std::runtime_error(what_arg)
+        {
+        }
+    };
 };
 
 #endif
