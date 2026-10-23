@@ -1,6 +1,5 @@
 #include "BitcoinExchange.hpp"
-// #include "Split.hpp"
-// #include
+#include <cstdlib>
 
 typedef std::pair<std::string, std::string> StrPair;
 typedef std::map<std::string, std::string>::iterator MapIt;
@@ -55,21 +54,67 @@ std::string BitcoinExchange::trimSpaces(const std::string &str)
 	return res;
 }
 
-void BitcoinExchange::checkDate(const std::string &date)
+bool BitcoinExchange::isLeap(int year)
+{
+	return (!(year & (year % 25 ? 3 : 15)));
+}
+
+void BitcoinExchange::rtFormatErr(const std::string &date)
 {
 	std::string err = "Invalid ISO format \"" + date + "\"\n";
+	throw std::runtime_error(err);
+}
 
+void BitcoinExchange::dateFormatCheck(const std::string &date)
+{
 	if (date.size() != 10)
-		throw std::runtime_error(err.c_str());
+		rtFormatErr(date);
 	for (size_t i = 0; i != date.size(); i++)
 	{
 		if (i == 4 || i == 7)
 		{
 			if (date.at(i) != '-')
-				throw std::runtime_error(err.c_str());
+				rtFormatErr(date);
 		}
 		else if (isdigit(date.at(i)) == false)
-			throw std::runtime_error(err.c_str());
+			rtFormatErr(date);
+	}
+}
+
+void BitcoinExchange::rtDateErr(const std::string &date)
+{
+	std::string err = "Invalid date \"" + date + "\"\n";
+	throw std::runtime_error(err);
+}
+
+void BitcoinExchange::checkDate(const std::string &date)
+{
+	dateFormatCheck(date);
+
+	std::string month = date.substr(5, 2);
+	if (month > "12")
+		rtDateErr(date);
+
+	std::string day = date.substr(8, 2);
+	if (day == "00" || month == "00")
+		rtDateErr(date);
+
+	if (month < "08")
+	{
+		std::string year = date.substr(0, 4);
+		if (month == "02" && ((!isLeap(std::atoi(year.c_str())) && day > "28") || day > "29"))
+			rtDateErr(date);
+		else if (month.at(1) % 2 == 0 && day > "30")
+			rtDateErr(date);
+		else if (day > "31")
+			rtDateErr(date);
+	}
+	else
+	{
+		if (month.at(1) % 2 && day > "30")
+			rtDateErr(date);
+		else if (day > "31")
+			rtDateErr(date);
 	}
 }
 
@@ -106,16 +151,26 @@ void BitcoinExchange::loadMap(const std::string &line, char c)
 	std::string rate;
 
 	size_t index = line.find(c);
+	if (index == line.npos)
+	{
+		std::string err = "Invalid line: " + line + "\n";
+		throw std::runtime_error(err);
+	}
 	date = trimSpaces(line.substr(0, index));
 	size_t start = index + 1;
 	index = line.find(c, index);
+	if (index == line.npos)
+	{
+		std::string err = "Invalid line: " + line + "\n";
+		throw std::runtime_error(err);
+	}	
 	rate = trimSpaces(line.substr(start, index));
 	checkDate(date);
 	checkRate(rate);
 	if (valueByDate.insert(StrPair(date, rate)).second == false)
 	{
-		std::string err = "Possible duplicated line: " + line + '\n';
-		throw std::runtime_error(err.c_str());
+		std::string err = "Duplicated date: " + date + ": first entry used\n";
+		throw std::runtime_error(err);
 	}
 }
 
@@ -123,7 +178,7 @@ void BitcoinExchange::loadFileCheck()
 {
 	std::string line;
 
-	// TODO: remove this later
+	// TODO: should I keep this
 	bool skipFirst = true;
 
 	while (getline(file, line))
@@ -139,7 +194,7 @@ void BitcoinExchange::loadFileCheck()
 		}
 		catch (const std::exception &e)
 		{
-			std::cerr << e.what();
+			std::cerr << "Invalid line: [" + line + "]\n";
 		}
 	}
 }

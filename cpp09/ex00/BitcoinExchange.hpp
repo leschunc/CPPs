@@ -19,7 +19,7 @@ private:
     BitcoinExchange &operator=(const BitcoinExchange &ref);
 
 public:
-    //TODO: OCF is not defined
+    // TODO: OCF is not defined
     BitcoinExchange();
     ~BitcoinExchange();
 
@@ -28,9 +28,13 @@ public:
     void loadMap(const std::string &str, char c);
     std::string trimSpaces(const std::string &str);
     // void checkValues();
+    void dateFormatCheck(const std::string &date);
+    void rtDateErr(const std::string &date);
+    void rtFormatErr(const std::string &date);
+    bool isLeap(int year);
     void checkDate(const std::string &value);
     void checkRate(const std::string &value);
-    
+
     void dbShowMap();
 };
 
