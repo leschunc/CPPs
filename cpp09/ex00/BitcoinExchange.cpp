@@ -82,6 +82,22 @@ void BitcoinExchange::rtDateErr(const std::string &date)
 	throw parse_error(err);
 }
 
+// TODO: decide if im using this
+/* 
+static int daysInMonth(int year, int month)
+{
+    static const int days[] = {31, 28, 31, 30, 31, 30, 31, 31, 30, 31, 30, 31};
+    return (month == 2 && isLeap(year)) ? 29 : days[month - 1];
+}
+
+int y = std::stoi(date.substr(0, 4));
+int m = std::stoi(month);
+int d = std::stoi(day);
+
+if (m < 1 || m > 12 || d < 1 || d > daysInMonth(y, m))
+    rtDateErr(date);
+*/
+
 void BitcoinExchange::checkDate(const std::string &date)
 {
 	dateFormatCheck(date);
@@ -112,14 +128,6 @@ void BitcoinExchange::checkDate(const std::string &date)
 			rtDateErr(date);
 	}
 }
-
-// int commaCheck(const std::string &rate)
-// {
-// 	size_t mark = rate.find(',');
-// 	if (mark == rate.npos)
-// 		return 0;
-// 	mark = rate.find(',' );
-// }
 
 void BitcoinExchange::checkRate(const std::string &rate)
 {
@@ -268,16 +276,11 @@ void BitcoinExchange::readInput()
 			cerr << "Invalid input" << '\n';
 		}
 	}
-
-	// 	file.open(av[1], std::ios::in);
-	// if (file.good() == false)
-	// 	throw parse_error("Invalid file state");
 }
 
 void BitcoinExchange::validateInput(const std::string &line)
 {
 	std::cout << line << "\n";
-	// BitcoinExchange::
 
 	size_t pos = line.find('|');
 	if (pos == line.npos)
@@ -289,7 +292,6 @@ void BitcoinExchange::validateInput(const std::string &line)
 
 	p.first = trimSpaces(p.first);
 	p.second = trimSpaces(p.second);
-	// checkDate()
 
 	checkDate(p.first);
 	checkValue(p.second);
@@ -301,7 +303,6 @@ void BitcoinExchange::findEntry(const StrPair &p)
 {
 	MapIt previous;
 
-	// std::cout << p.first << "<<<<<<\n";
 	previous = valueByDate.begin();
 	for (MapIt it = valueByDate.begin(); it != valueByDate.end(); it++)
 	{
