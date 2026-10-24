@@ -5,21 +5,29 @@
 BitcoinExchange::BitcoinExchange()
 {
 }
+
 BitcoinExchange::BitcoinExchange(const BitcoinExchange &ref)
 {
 	if (this == &ref)
 		return;
+	valueByDate = ref.getMap();
 }
+
 BitcoinExchange::~BitcoinExchange()
 {
 }
+
 BitcoinExchange &BitcoinExchange::operator=(const BitcoinExchange &ref)
 {
-	(void)ref;
+	valueByDate = ref.getMap();
 	return *this;
 }
 
-// TODO: are all checks being performed here
+std::map<std::string, std::string> BitcoinExchange::getMap() const
+{
+	return this->valueByDate;
+}
+
 void BitcoinExchange::openFileCheck(int ac, char *av[])
 {
 	if (ac < 2)
@@ -82,22 +90,6 @@ void BitcoinExchange::rtDateErr(const std::string &date)
 	throw parse_error(err);
 }
 
-// TODO: decide if im using this
-/* 
-static int daysInMonth(int year, int month)
-{
-    static const int days[] = {31, 28, 31, 30, 31, 30, 31, 31, 30, 31, 30, 31};
-    return (month == 2 && isLeap(year)) ? 29 : days[month - 1];
-}
-
-int y = std::stoi(date.substr(0, 4));
-int m = std::stoi(month);
-int d = std::stoi(day);
-
-if (m < 1 || m > 12 || d < 1 || d > daysInMonth(y, m))
-    rtDateErr(date);
-*/
-
 void BitcoinExchange::checkDate(const std::string &date)
 {
 	dateFormatCheck(date);
@@ -159,32 +151,12 @@ void BitcoinExchange::checkValue(const std::string &value)
 		throw parse_error("Invalid char in value");
 }
 
-// void BitcoinExchange::checkValues()
-// {
-// 	StrPair pair;
-
-// 	for (MapIt it = valueByDate.begin(); it != valueByDate.end(); it++)
-// 	{
-// 		try
-// 		{
-// 			checkDate((*it).first);
-// 			checkRate((*it).second);
-// 		}
-// 		catch (const std::exception &e)
-// 		{
-// 			valueByDate
-// 		}
-// 	}
-// }
-
-// TODO: try and catch outside
-void BitcoinExchange::loadMap(const std::string &line)
+void BitcoinExchange::processLine(const std::string &line)
 {
 	if (line.empty())
-		throw parse_error("Empty entry");
+		return;
 
 	StrPair p;
-
 	size_t pos = line.find(',');
 	if (pos == line.npos)
 		throw parse_error("Missing ',' separator: " + line);
@@ -202,30 +174,28 @@ void BitcoinExchange::loadMap(const std::string &line)
 	checkRate(p.second);
 
 	if (valueByDate.insert(p).second == false)
-	{
 		throw parse_error("Duplicated date: " + p.first + ": first entry used");
-	}
 }
 
-void BitcoinExchange::loadFileCheck()
+void BitcoinExchange::readFileHeader()
+{
+	std::string line;
+	
+	getline(file, line);
+	if (line.compare("date,exchange_rate") != 0)
+		cerr << "Invalid header line\n";
+}
+
+void BitcoinExchange::readFile()
 {
 	std::string line;
 
-	// TODO: should I keep this
-	bool header = true;
-
+	readFileHeader();
 	while (getline(file, line))
 	{
-		if (header)
-		{
-			header = false;
-			if (line.compare("date,exchange_rate") != 0)
-				cerr << "Invalid header line\n";
-			continue;
-		}
 		try
 		{
-			loadMap(line);
+			processLine(line);
 		}
 		catch (const parse_error &e)
 		{
@@ -248,21 +218,32 @@ void BitcoinExchange::dbShowMap()
 	}
 }
 
+void BitcoinExchange::readInHeader()
+{
+	std::string line;
+	try
+	{
+		std::getline(std::cin, line);
+		if (line.compare("date | value") != 0)
+			cerr << "Invalid header format\n";
+	}
+	catch (const BitcoinExchange::parse_error &e)
+	{
+		cerr << e.what() << "\n";
+	}
+	catch (const std::exception &e)
+	{
+		cerr << "Invalid input" << '\n';
+	}
+}
+
 void BitcoinExchange::readInput()
 {
 	std::string line;
 
-	bool header = true;
-
+	readInHeader();
 	while (std::getline(std::cin, line))
 	{
-		if (header)
-		{
-			if (line.compare("date | value") != 0)
-				cerr << "Invalid header format\n";
-			header = false;
-			continue;
-		}
 		try
 		{
 			validateInput(line);
@@ -280,8 +261,8 @@ void BitcoinExchange::readInput()
 
 void BitcoinExchange::validateInput(const std::string &line)
 {
-	std::cout << line << "\n";
-
+	if (line.empty())
+		return;
 	size_t pos = line.find('|');
 	if (pos == line.npos)
 		throw parse_error("Expected separator '|' not found");
@@ -318,6 +299,6 @@ void BitcoinExchange::printInput(const MapIt &it, const StrPair &p)
 	char *endptr;
 	double rate = std::strtod((*it).second.c_str(), &endptr);
 	double value = std::strtod(p.second.c_str(), &endptr);
-
 	std::cout << "rate: " << rate << " | value: " << value << " | converted: " << rate * value << "\n";
+	cout << "_________________________________________\n\n";
 }

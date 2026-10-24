@@ -16,23 +16,22 @@ class BitcoinExchange
 private:
     std::ifstream file;
     std::map<std::string, std::string> valueByDate;
-    BitcoinExchange(const BitcoinExchange &ref);
-    BitcoinExchange &operator=(const BitcoinExchange &ref);
 
 public:
-    // TODO: OCF is not defined
     // OCF
+    BitcoinExchange(const BitcoinExchange &ref);
+    BitcoinExchange &operator=(const BitcoinExchange &ref);
     BitcoinExchange();
     ~BitcoinExchange();
+    std::map<std::string, std::string> getMap() const;
 
     // files
     void openFileCheck(int ac, char *av[]);
-    void loadFileCheck();
-
-    // loading
-    void loadMap(const std::string &str);
+    void readFile();
+    void readFileHeader();
 
     // parsing
+    void processLine(const std::string &str);
     std::string trimSpaces(const std::string &str);
     void dateFormatCheck(const std::string &date);
     bool isLeap(int year);
@@ -42,9 +41,10 @@ public:
 
     // input loop
     void readInput();
+    void readInHeader();
     void validateInput(const std::string &line);
     void findEntry(const StrPair &p);
-    void printInput(const MapIt& it, const StrPair &p);
+    void printInput(const MapIt &it, const StrPair &p);
 
     // throw wrapper
     void rtDateErr(const std::string &date);

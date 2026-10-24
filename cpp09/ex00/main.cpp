@@ -6,13 +6,9 @@ int main(int ac, char *av[])
 	try
 	{
 		btx.openFileCheck(ac, av);
-		// cout << "File opened succesfully\n\n";
-		btx.loadFileCheck();
-
-		// btx.dbShowMap();
-
+		btx.readFile();
+		btx.dbShowMap();
 		btx.readInput();
-
 	}
 	catch (const std::exception &e)
 	{
