@@ -282,16 +282,19 @@ void BitcoinExchange::validateInput(const std::string &line)
 
 void BitcoinExchange::findEntry(const StrPair &p)
 {
-	MapIt previous;
+	// MapIt previous;
 
-	previous = valueByDate.begin();
-	for (MapIt it = valueByDate.begin(); it != valueByDate.end(); it++)
-	{
-		if ((*(it)).first > p.first)
-			break;
-		previous = it;
-	}
-	printInput(previous, p);
+	// previous = valueByDate.begin();
+	// for (MapIt it = valueByDate.begin(); it != valueByDate.end(); it++)
+	// {
+	// 	if ((*(it)).first > p.first)
+	// 		break;
+	// 	previous = it;
+	// }
+	MapIt it = valueByDate.lower_bound(p.first);
+	if (it == valueByDate.end())
+			--it;
+	printInput(it, p);
 }
 
 void BitcoinExchange::printInput(const MapIt &it, const StrPair &p)

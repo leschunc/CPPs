@@ -7,7 +7,7 @@ int main(int ac, char *av[])
 	{
 		btx.openFileCheck(ac, av);
 		btx.readFile();
-		btx.dbShowMap();
+		// btx.dbShowMap();
 		btx.readInput();
 	}
 	catch (const std::exception &e)
