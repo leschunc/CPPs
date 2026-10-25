@@ -24,20 +24,21 @@ clean:
 
 fclean: clean
 	rm -f $(NAME)
-# 	rm -f run.sh
+	rm -f run.sh
 
 run.sh:
-	echo './btc "$$@"' > run.sh
+	echo 'cat input.txt | ./btc data.csv' > run.sh
 	chmod +x run.sh
 
 g: re run.sh
+	./run.sh "$$args"
+	make fclean
+
 # 	@read args; \
 # 	if [ -z "$$args" ]; then \
 # 		args="data.csv"; \
 # 	fi; \
 	
-	./run.sh "$$args"
-	make fclean
 
 re: fclean all
 
