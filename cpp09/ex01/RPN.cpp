@@ -21,9 +21,9 @@ RPN::~RPN()
 
 RPN::RPN(int ac, char *av[])
 {
-
     if (ac != 2)
         return;
+    capacity = 10;
     try
     {
         line = av[1];
@@ -46,19 +46,20 @@ RPN::RPN(int ac, char *av[])
 // #include <cctype>
 // #include <string>
 
-char RPN::popTop()
+long RPN::popTop()
 {
     if (tokens.empty())
         throw parse_error("Unexpected end of expression");
-    char c = tokens.top();
+    long value = tokens.top();
     tokens.pop();
-    return c;
+    return value;
 }
 
 void RPN::calc(char c)
 {
     long left = popTop();
     long right = popTop();
+
     switch (c)
     {
     case '*':
@@ -87,7 +88,12 @@ void RPN::pushTokens()
         if (std::isspace(line[i]))
             continue;
         if (std::isdigit(line[i]))
+        {
+            capacity--;
+            if (capacity < 0)
+                throw exec_error("OPs amount exceeds limit");
             tokens.push(line[i] - '0');
+        }
         else if (std::string("*/+-").find(line[i]) != std::string::npos)
             calc(line[i]);
         else

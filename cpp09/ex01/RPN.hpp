@@ -10,10 +10,6 @@ using std::cout;
 
 class RPN
 {
-private:
-    std::stack<long> tokens;
-    std::string line;
-
 public:
     RPN();
     RPN(int ac, char *av[]);
@@ -21,9 +17,14 @@ public:
     RPN &operator=(const RPN &ref);
     ~RPN();
 
+private:
+    std::stack<long> tokens;
+    std::string line;
+    int capacity;
+
     void processLine();
     void pushTokens();
-    char popTop();
+    long popTop();
     void calc(char c);
 
     void dispStack();
