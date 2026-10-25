@@ -28,7 +28,7 @@ fclean: clean
 re: fclean all
 
 g: re
-	./$(NAME) "2 3 + 5 * - 2"
+	./$(NAME) " 1 2 + 6 3 - *"
 
 -include $(DEPS)
 

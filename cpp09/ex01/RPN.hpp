@@ -11,7 +11,8 @@ using std::cout;
 class RPN
 {
 private:
-    std::stack<char> tokens;
+    std::stack<long> tokens;
+    std::string line;
 
 public:
     RPN();
@@ -20,11 +21,12 @@ public:
     RPN &operator=(const RPN &ref);
     ~RPN();
 
-    void processLine(std::string line);
-    void addElement(char c);
-    void dispStack();
+    void processLine();
+    void pushTokens();
+    char popTop();
+    void calc(char c);
 
-    void calculate();
+    void dispStack();
 
     class parse_error : public std::runtime_error
     {
