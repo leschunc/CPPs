@@ -2,11 +2,11 @@ NAME        = PmergeMe
 CXX         = c++
 CXXFLAGS    = -Wall -Wextra -Werror -std=c++98 -MMD -MP
 
-SRCS        = main.cpp 
+SRCS        = main.cpp PmergeMe.cpp
 OBJ_DIR     = objs
 OBJS        = $(SRCS:%.cpp=$(OBJ_DIR)/%.o)
 DEPS        = $(OBJS:.o=.d)
-MAKEFLAGS	+= -s
+# MAKEFLAGS	+= -s
 
 all: $(NAME)
 
@@ -31,7 +31,8 @@ ARGS 		= ""
 
 g: re
 	./$(NAME) $(ARGS)
+	make fclean
 
 -include $(DEPS)
 
-.PHONY: all clean fclean re
+.PHONY: all clean fclean re g
