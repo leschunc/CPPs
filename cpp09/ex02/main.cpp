@@ -1,8 +1,7 @@
 #include "PmergeMe.hpp"
 #include <unistd.h>
-#include <climits>
 
-size_t size = 8;
+size_t size = 7;
 size_t jump;
 std::vector<int> elements;
 
@@ -53,72 +52,76 @@ void bits(size_t num)
 	write(1, "\n", 1);
 }
 
-size_t jacobIndex(size_t bound)
+size_t jacobIndex(int index)
 {
-	if (bound > INT_MAX)
-		return -1;
-	size_t jacob = 0;
+	size_t num = 0;
 
-	for (size_t i = 0; i < bound; i++)
+	if (index > 64)
+		return -1;
+
+	if (index == 0)
+		return num;
+	for (int i = 0; i < index; i++)
 	{
 		if (i % 2 == 0)
-			jacob = jacob << 1;
+			num = (num << 1) + 1;
 		else
-			jacob = (jacob << 1) + 1;
+			num = num << 1;
 	}
-	if (bound % 2)
-		jacob++;
-
-	return jacob;
+	num |= 1;
+	return num;
 }
 
-size_t jacobUpper(size_t nmemb)
+size_t upperBound(size_t num)
 {
-	if (nmemb == 0)
-		return 1;
-	if (nmemb > INT_MAX)
+	if (num == -1UL)
 		return -1;
+
 	size_t jacob = 0;
-	for (size_t i = 0; jacob <= nmemb; i++)
+	for (size_t i = 0; num > jacob; i++)
 		jacob = jacobIndex(i);
+
 	return jacob;
 }
 
-size_t jacobNext(size_t num)
+size_t lowerBound(size_t num)
 {
-
-	if (num > INT_MAX)
+	if (num == -1UL)
 		return -1;
-	size_t lower = jacobUpper(num >> 1);
 
-	num--;
+	size_t jacob = -1;
+	for (size_t i = 64; num < jacob; i--)
+		jacob = jacobIndex(i);
 
-	if (num == lower || lower != -1UL)
-		return jacobUpper(num + 1);
-	else
-		return num;
+	return jacob;
+}
+
+size_t nextJacob(size_t index)
+{
+	size_t lower = lowerBound(index);
+	size_t upper = upperBound(index);
+
+	if (index == 0) return 0;
+	if (index == 1) return 1;
+
+	if (lower == upper)
+		lower = lowerBound(index - 1);
+	
+	return lower + upper - index + 1;
 }
 
 int main()
 {
 
-	// loop();
+	loop();
 
-	// size_t jacob = 0;
-
-	// for (size_t i = 0; i < 32; i++)
-	// {
-	// 	std::cout << jacob << "\n";
-	// 	jacob = jacobNext(jacob);
-	// }
-
-	
-	for (size_t i = 0; i < 10; i++)
+	for (size_t i = 0; i < 50; i++)
 	{
-	std::cout << jacobNext(i) << "\n";
+		size_t res = nextJacob(i);
+		// bits(res);
+		std::cout << res << " ";
 	}
-	
-
+	std::cout << "\n";
 
 	return 0;
 }
